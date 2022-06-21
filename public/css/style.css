@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body{
+    background-color:#1d1d1d;
+    }
+    
+    #main-container{
+        margin: 50px;
+        width: middle;
+    }
+    
+    table{
+        background-color: rgb(39, 39, 39);
+        text-align: middle;
+        width: 20%;
+        border-collapse: collapse;
+    }
+    
+    th, td{
+        padding: 15px;
+        border: solid 1px #1d1d1d;
+        color: white;
+        font-family: montserrat, sans-serif;
+    }
+    
+    thead{
+        background-color: #333333;
+        color: white;
+    }   
+    
+    tr:nth-child(even){
+        background-color: #333333;
+        color: white;
+    }
+    
+    tr:hover td{
+        background-color: #444444;
+        color: white;
+    }
+    h1{
+      font-family: Arial, Helvetica, sans-serif;
+      color: rgb(150, 150, 150);
+      text-align: center;
+      font-size: 20px;
+      }
+    h2{
+      font-family: Arial, Helvetica, sans-serif;
+      color: rgb(150, 150, 150);
+      text-align: center;
+      font-size: 15px;
+      }
+    p{
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        }
+    
+    a{
+        text-decoration: none;
+        color: #b837b8;
+        font-weight: bold;
+    }
+    
+    img{
+        width: 112px;
+        margin: auto;
+        display: block;
+    }
+    
+    .roles{
+        width: 25px;
+        margin: auto;
+        display: block;
+    }
+
+    h1{
+        font-family: "montserrat", sans-serif;
+        color: rgba(255, 255, 255, 0.336);
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .space{
+        width: 100px;
+        height: auto;
+        display: inline-block;
+      }
+
+        img {  
+        object-fit: cover; 
+        width: 500;
+        height: 500; 
+        }  
