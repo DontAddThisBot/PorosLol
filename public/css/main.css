@@ -1,1 +1,65 @@
-body { background-color: aqua;}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300&display=swap');
+
+body { background-color: #565656;}
+
+a {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color:lightgrey;
+    font-family: 'Anek Latin', sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+}
+b {
+    color:whitesmoke;
+    font-family: 'Anek Latin', sans-serif;
+    font-size: 20px;
+}
+b1{
+    font-family: 'Anek Latin', sans-serif;
+    font-size: 20px;
+}
+
+button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color:lightgrey;
+    font-family: 'Anek Latin', sans-serif;
+    font-size: 20px;
+}
+a1{
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color:lightgrey;
+    font-family: 'Anek Latin', sans-serif;
+    font-size: 20px;
+}
+
+h1{
+    font-family: montserrat, sans-serif;
+    color:lightgrey;
+    font-size: 50px;
+}
+h2{
+    font-family: montserrat, sans-serif;
+    color:grey;
+    font-size: 30px;
+}
+h3 {
+    font-family: montserrat, sans-serif;
+    color:grey;
+    font-size: 20px;
+}
