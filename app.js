@@ -1,7 +1,15 @@
+
+
 // Imports
 const express = require('express')
+
+global.bot = {};
+bot.DB = require("./util/db.js");
+
 const app = express()
 const port = 3001
+
+// Client
 
 
 
@@ -18,14 +26,29 @@ app.set('view engine', 'ejs')
 
 
 app.get('', (req, res) => {
-    res.render('index', { text: 'This is EJS' })
+    res.render('index', { text: "xd" })
+
 })
 
 app.get('/commands', (req, res) => {
     res.render('commands', { text: 'Commands' })
 })
 app.get('/leaderboard', (req, res) => {
-    res.render('leaderboard', { text: 'Commands' })
+    bot.DB.poroCount.find({}).exec(function(err, kekw) {
+        if (err) throw err;
+        res.render('leaderboard', { porosLB1: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(0, 1)).map((user) => `${user.username} - ${user.poroCount} `) 
+        , porosLB2: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(1, 2)).map((user) => `${user.username} - ${user.poroCount} `),
+        porosLB3: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(2, 3)).map((user) => `${user.username} - ${user.poroCount} `),
+        porosLB4: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(3, 4)).map((user) => `${user.username} - ${user.poroCount} `),
+        porosLB5: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(4, 5)).map((user) => `${user.username} - ${user.poroCount} `),
+        porosLB6: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(5, 6)).map((user) => `${user.username} - ${user.poroCount} `),
+        porosLB7: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(6, 7)).map((user) => `${user.username} - ${user.poroCount} `),
+        porosLB8: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(7, 8)).map((user) => `${user.username} - ${user.poroCount} `),
+        porosLB9: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(8, 9)).map((user) => `${user.username} - ${user.poroCount} `),
+        porosLB10: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(9, 10)).map((user) => `${user.username} - ${user.poroCount} `),
+
+    })
+    })
 })
 
 
