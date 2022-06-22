@@ -24,6 +24,9 @@ app.get('', (req, res) => {
 app.get('/commands', (req, res) => {
     res.render('commands', { text: 'Commands' })
 })
+app.get('/leaderboard', (req, res) => {
+    res.render('leaderboard', { text: 'Commands' })
+})
 
 
 
