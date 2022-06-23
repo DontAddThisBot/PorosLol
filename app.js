@@ -33,6 +33,11 @@ app.get('', (req, res) => {
 app.get('/commands', (req, res) => {
     res.render('commands', { text: 'Commands' })
 })
+
+app.get('/api', (req, res) => {
+    res.render('api')
+})
+
 app.get('/leaderboard', (req, res) => {
     bot.DB.poroCount.find({}).exec(function(err, kekw) {
         if (err) throw err;
