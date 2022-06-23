@@ -1,2 +1,4 @@
 .env
 node_modules/
+img/BloodTrail.png
+views/code.ejs

@@ -36,8 +36,12 @@ app.get('/commands', (req, res) => {
     res.render('commands', { text: 'Commands' })
 })
 
-app.get('/api', (req, res) => {
-    res.render('api')
+app.get('/search', (req, res) => {
+    res.render('search')
+})
+
+app.get('/code', (req, res) => {
+    res.render('code')
 })
 
 app.get('/leaderboard', (req, res) => {
@@ -55,6 +59,18 @@ app.get('/leaderboard', (req, res) => {
         porosLB10: ((kekw.sort((a, b) => b.poroCount - a.poroCount)).slice(9, 10)).map((user) => `${user.username} - ${user.poroCount} `),
 
     })
+    })
+})
+
+app.get('/channel', (req, res) => {
+    bot.DB.poroCount.findOne({ username: req.query.user }).exec(function(err, kekw2) {
+        if (!kekw2) {
+           return res.status(404).send("User not found");
+        }
+        if (err) throw err;
+        res.render('channel', {
+            xd: kekw2,
+        })
     })
 })
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 ">
-    <title>DontAddThisBot - API</title>
+    <title>DontAddThisBot - <%= xd.username %></title>
     <link rel="stylesheet" href="css/main.css">
 
 </head>
@@ -27,7 +27,7 @@
                 <a href="/commands" style = "position:relative; left:180px; top:0px;text-align: center;right:0;">Commands</a>
             </tr>
             <tr>
-                <a href="/api" style = "position:relative; left:220px; top:0px;text-align: center;right:0;">API</a>
+                <a href="/search" style = "position:relative; left:220px; top:0px;text-align: center;right:0;">Search</a>
             </tr>
             <tr>
                 <a  href=https://github.com/kattah7 target="_blank"><img src="img/githublogo.png"width="40" height="40"style = "position:relative; left:270px; top:10px;text-align: center;right:0;"></a>
@@ -36,15 +36,26 @@
 
             </thead>
         </table>
-        <table>
-            <thead>
-            <tr>
-                <a style="font-size: 100px;position:relative; left:0px; top:300px;text-align: center;right:0;">
-                    API SOON COPIUM
-                </a>
-            </tr>
-            </thead>
-        </table>
+    </center>
+    <center style = "position:relative; left:-30px; top:150px;text-align: center;right:0;">
+        <thead>
+            <form class="d-flex" action="/channel" method="GET" >
+                <input class="form-control" name="user" type="text" placeholder="Channel name" style="max-width: 250px;" autofocus="" required="">
+                <input class="btn btn-primary" type="submit" value="🔍" ></form>
+                <img src="img/AlienFeel.gif"width="140" height="140"style = "position:relative; left:0px; top:40px;text-align: center;right:0;">
+        </thead>
+    
+</center>
+    <center style="position:relative; left:-30px; top:200px;text-align: center;right:0;">
+        <h3>
+            Username: <%= xd.username %>
+        </h3>
+        <h3>
+            PoroCount: <%= xd.poroCount %>
+        </h3>
+        <h3>
+            Registered: <%= xd.joinedAt %>
+        </h3>
     </center>
 </div>
 </body>
