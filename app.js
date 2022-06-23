@@ -4,12 +4,14 @@
 const express = require('express')
 
 global.bot = {};
+bot.Redis = require("./util/redis.js");
 bot.DB = require("./util/db.js");
+require("./api/server");
 
 const app = express()
 const port = 3001
 
-// Client
+
 
 
 
