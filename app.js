@@ -74,6 +74,16 @@ app.get('/channel', (req, res) => {
     })
 })
 
+app.get('/rank', (req, res) => {
+    bot.DB.poroCount.find({}).exec(function(err, kekw3) {
+        if (err) throw err;
+        res.render('rank', {
+            xd2: (((kekw3.sort((a, b) => b.poroCount - a.poroCount)).slice(0, 5000000)).findIndex((user) => user.username == req.query.user) + 1),
+            xd3: (kekw3.length.toLocaleString())
+        })
+    })
+})
+
 
 
 
