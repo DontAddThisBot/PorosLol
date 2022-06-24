@@ -39,8 +39,9 @@
     </center>
     <center style = "position:relative; left:-30px; top:150px;text-align: center;right:0;">
             <thead>
-                <form class="d-flex" action="/channel" method="GET" >
-                    <input class="form-control" name="user" type="text" placeholder="Channel name" style="max-width: 250px;" autofocus="" required="">
+                <form class="d-flex" action="/channel" method="GET" style="text-transform:lowercase">
+                    <input class="form-control" name="user" type="text" placeholder="Channel (lowercase only)" style="max-width: 250px" autofocus="" required=""
+                           maxlength="26">
                     <input class="btn btn-primary" type="submit" value="🔍" ></form>
                     <img src="img/AlienFeel.gif"width="140" height="140"style = "position:relative; left:0px; top:40px;text-align: center;right:0;">
             </thead>

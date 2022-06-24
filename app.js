@@ -63,7 +63,7 @@ app.get('/leaderboard', (req, res) => {
 })
 
 app.get('/channel', (req, res) => {
-    bot.DB.poroCount.findOne({ username: req.query.user }).exec(function(err, kekw2) {
+    bot.DB.poroCount.findOne({ username: req.query.user.toLowerCase() }).exec(function(err, kekw2) {
         if (!kekw2) {
            return res.status(404).send("User not found");
         }
