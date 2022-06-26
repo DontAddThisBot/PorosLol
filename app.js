@@ -28,7 +28,12 @@ app.set('view engine', 'ejs')
 
 
 app.get('', (req, res) => {
-    res.render('index', { text: "xd" })
+    bot.DB.channels.find({}).exec(function(err, channels) {
+        if (err) throw err;
+        res.render('index', {
+            channelcount: (channels.length.toLocaleString())
+        })
+    })
 
 })
 
