@@ -133,3 +133,19 @@ function prestige2()
     }
     
 }
+
+var j
+function giveporo()
+{
+    if (j==0)
+    {
+        document.getElementById("giveporo").style.display="none";
+        return j=1;
+    }
+    else
+    {
+        document.getElementById("giveporo").style.display="inline";
+        return j=0;
+    }
+    
+}
