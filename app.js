@@ -7,6 +7,8 @@ global.bot = {};
 bot.Redis = require("./util/redis.js");
 bot.DB = require("./util/db.js");
 require("./api/server");
+const humanizeDuration = require('./humanizeDuration');
+const axios = require('axios');
 
 const app = express()
 const port = 3001
@@ -67,28 +69,26 @@ app.get('/leaderboard', (req, res) => {
     })
 })
 
-app.get('/channel', (req, res) => {
-    bot.DB.poroCount.findOne({ username: req.query.user.toLowerCase() }).exec(function(err, kekw2) {
+app.get('/channel', async (req, res) => {
+        const kekw2 = await bot.DB.poroCount.findOne({ username: req.query.user.toLowerCase() }).exec()
         if (!kekw2) {
-           return res.status(404).send("User not found");
+            return res.render('error')
         }
-        if (err) throw err;
+        var today = new Date();
+        const timestamp = new Date(kekw2.joinedAt)
+        const diffTime = Math.abs(today - timestamp);
+        const registerDate = humanizeDuration(diffTime);
+        const api = await axios.get(`https://api.ivr.fi/twitch/resolve/${req.query.user.toLowerCase()}`)
+        const poroData = await bot.DB.poroCount.find({}).exec();
+        const myRank = (((poroData.sort((a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount)).slice(0, 5000000)).findIndex((user) => user.username == req.query.user) + 1)
         res.render('channel', {
             xd: kekw2,
+            register: registerDate,
+            api: api.data,
+            myPoroRank: myRank,
+            AllPoroRank: (poroData.length.toLocaleString())
         })
-    })
 })
-
-app.get('/rank', (req, res) => {
-    bot.DB.poroCount.find({}).exec(function(err, kekw3) {
-        if (err) throw err;
-        res.render('rank', {
-            xd2: (((kekw3.sort((a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount)).slice(0, 5000000)).findIndex((user) => user.username == req.query.user) + 1),
-            xd3: (kekw3.length.toLocaleString())
-        })
-    })
-})
-
 
 
 
