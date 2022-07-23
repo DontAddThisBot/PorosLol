@@ -1,7 +1,17 @@
 
+require("dotenv").config();
 
 // Imports
 const express = require('express')
+var session        = require('express-session');
+var passport       = require('passport');
+var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
+var request        = require('request');
+
+const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
+const TWITCH_SECRET    = process.env.TWITCH_SECRET;
+const SESSION_SECRET   = process.env.SESSION_SECRET;
+const CALLBACK_URL     = process.env.CALLBACK_URL;
 
 global.bot = {};
 bot.Redis = require("./util/redis.js");
@@ -13,29 +23,91 @@ const axios = require('axios');
 const app = express()
 const port = 3001
 
-
-
-
-
 // Static Files
+app.use(session({secret: SESSION_SECRET, resave: false, saveUninitialized: false}));
 app.use(express.static('public'))
 app.use('/css', express.static(__dirname + 'public/css'))
 app.use('/js', express.static(__dirname + 'public/js'))
 app.use('/img', express.static(__dirname + 'public/img'))
-
-// Set Views
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
+OAuth2Strategy.prototype.userProfile = function(accessToken, done) {
+    var options = {
+      url: 'https://api.twitch.tv/helix/users',
+      method: 'GET',
+      headers: {
+        'Client-ID': TWITCH_CLIENT_ID,
+        'Accept': 'application/vnd.twitchtv.v5+json',
+        'Authorization': 'Bearer ' + accessToken
+      }
+    };
+  
+    request(options, function (error, response, body) {
+      if (response && response.statusCode == 200) {
+        done(null, JSON.parse(body));
+        console.log(JSON.parse(body))
+      } else {
+        done(JSON.parse(body));
+      }
+    });
+  }
 
-app.get('', (req, res) => {
-    bot.DB.channels.find({}).exec(function(err, channels) {
-        if (err) throw err;
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.use('twitch', new OAuth2Strategy({
+    authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
+    tokenURL: 'https://id.twitch.tv/oauth2/token',
+    clientID: TWITCH_CLIENT_ID,
+    clientSecret: TWITCH_SECRET,
+    callbackURL: CALLBACK_URL,
+    state: true
+  },
+  function(accessToken, refreshToken, profile, done) {
+    profile.accessToken = accessToken;
+    profile.refreshToken = refreshToken;
+
+    // Securely store user profile in your DB
+    //User.findOrCreate(..., function(err, user) {
+    //  done(err, user);
+    //});
+
+    done(null, profile);
+  }
+));
+
+// Set route to start OAuth link, this is where you define scopes to request
+app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
+
+// Set route for OAuth redirect
+app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
+
+
+app.get('', async (req, res) => {
+    const channels = await bot.DB.channels.find({}).exec()
+    if(req.session && req.session.passport && req.session.passport.user) {
+        const user = req.session.passport.user;
+        const levelRank = await bot.DB.users.findOne({ username: user.data[0].login }).exec()
+          res.render('success', {
+            username: user.data[0].display_name,
+            avatar: user.data[0].profile_image_url,
+            bio: user.data[0].description,
+            channels: channels.length.toLocaleString(),
+            rank: levelRank.level,
+          });
+      } else {
         res.render('index', {
-            channelcount: (channels.length.toLocaleString())
+            channels: channels.length.toLocaleString(),
         })
-    })
+      }
 
 })
 
@@ -49,6 +121,10 @@ app.get('/search', (req, res) => {
 
 app.get('/code', (req, res) => {
     res.render('code')
+})
+
+app.get('/privacy', (req, res) => {
+    res.render('privacy')
 })
 
 app.get('/leaderboard', (req, res) => {
@@ -80,7 +156,7 @@ app.get('/channel', async (req, res) => {
         const registerDate = humanizeDuration(diffTime);
         const api = await axios.get(`https://api.ivr.fi/twitch/resolve/${req.query.user.toLowerCase()}`)
         const poroData = await bot.DB.poroCount.find({}).exec();
-        const myRank = (((poroData.sort((a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount)).slice(0, 5000000)).findIndex((user) => user.username == req.query.user) + 1)
+        const myRank = (((poroData.sort((a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount)).slice(0, 5000000)).findIndex((user) => user.username == req.query.user.toLowerCase()) + 1)
         res.render('channel', {
             xd: kekw2,
             register: registerDate,
