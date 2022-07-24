@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 ">
+    <title>DontAddThisBot - Admin/Level <%= rank %></title>
+    <link rel="stylesheet" href="css/main.css">
+
+</head>
+<script src="js/mainpage.js">
+</script>
+<body>
+<div>
+    <center>
+        <table>
+            <thead>
+
+            <tr>
+                <img src="img/poroHappy.png"width="50" height="50"style = "position:relative; left:-350px; top:15px;text-align: center;right:0;">
+                <a style = "position:relative; left:-330px; top:0px;text-align: center;right:0;font-size: 20px" href="/"><strong>DontAddThisBot</strong></a>
+            </tr>
+            <tr>
+                <a href="/privacy" style = "position:relative; left:100px; top:0px;text-align: center;right:0;">Privacy</a>
+            </tr>
+            <tr>
+                <a href="/leaderboard" style = "position:relative; left:140px; top:0px;text-align: center;right:0;">Leaderboard</a>
+            </tr>
+            <tr>
+                <a href="/commands" style = "position:relative; left:180px; top:0px;text-align: center;right:0;">Commands</a>
+            </tr>
+            <tr>
+                <a href="/search" style = "position:relative; left:220px; top:0px;text-align: center;right:0;">Search</a>
+            </tr>
+            <tr>
+                <a  href=https://github.com/kattah7 target="_blank"><img src="img/githublogo.png"width="40" height="40"style = "position:relative; left:270px; top:10px;text-align: center;right:0;"></a>
+            </tr>
+
+
+            </thead>
+        </table>
+    </center>
+    <center style = "position:relative; left:-30px; top:150px;text-align: center;right:0;">
+        <% if (rank > 1) { %>
+        <a style = "position:relative; top:-10px;right:170px;">Ban User</a>
+        <a style = "position:relative; top:-10px;right:-170px;">Unban User</a>
+            <thead>
+                <form class="d-flex">
+                    <input class="form-control" name="userBan" action="/admin" method="GET" type="text"  style="max-width: 250px;position:relative; right:210px;" autofocus="" required=""
+                           maxlength="26">
+                    <input class="btn btn-primary" type="submit" value="Ban" style="color:red;position:relative; right:210px;" >
+                </form>
+                <form class="d-flex">
+                    <input class="form-control" name="userUnban" type="text"  action="/admin" method="GET" style="max-width: 250px;position:relative; right:-210px;top:-20px" autofocus="" required=""
+                           maxlength="26">
+                    <input class="btn btn-primary" type="submit" value="Unban" style="color:rgb(0, 255, 26);position:relative; right:-210px;top:-20px" >
+                </form>
+                    <img src="img/MODS.gif"width="140" height="140"style = "position:relative; left:0px; top:80px;text-align: center;right:0;">
+            </thead>
+        <% } else { %>
+        <h1>Access Denied</h1>
+        <% } %>
+    </center>
+        
+</div>
+</body>
+</html>

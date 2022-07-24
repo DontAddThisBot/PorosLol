@@ -1,3 +1,4 @@
+
 var j
 function openInfo()
 {
@@ -15,3 +16,4 @@ function openInfo()
     }
     
 }
+

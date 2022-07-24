@@ -106,11 +106,11 @@ app.get('', async (req, res) => {
                 level: 1,
             });
             await userdata.save();
-            res.render('index', {
+            res.render('index', { // if login success but not in database user must retry.
               channels: channels.length.toLocaleString(),
           })
         } else {
-          res.render('success', {
+          res.render('success', { // if login success
             username: user.data[0].display_name,
             avatar: user.data[0].profile_image_url,
             bio: user.data[0].description,
@@ -119,11 +119,24 @@ app.get('', async (req, res) => {
           });
         }
       } else {
-        res.render('index', {
+        res.render('index', { // if login failed
             channels: channels.length.toLocaleString(),
         })
       }
 
+})
+
+app.get('/admin', async (req, res) => {
+  if(req.session && req.session.passport && req.session.passport.user) {
+    const user = req.session.passport.user;
+    const levelRank = await bot.DB.users.findOne({ id: user.data[0].id }).exec()
+    await bot.DB.users.updateOne({ username: req.query.userBan?.toLowerCase().replace(/kattah|fookstee|turtoise|zonianmidian|liptongod/i, '') }, { level: 0 }).exec();
+    await bot.DB.users.updateOne({ username: req.query.userUnban?.toLowerCase().replace(/kattah|fookstee|turtoise|zonianmidian|liptongod/i, '') }, { level: 1 }).exec();
+    res.render('admin', {
+      rank: levelRank.level})
+  } else {
+    res.redirect('/')
+  }
 })
 
 app.get('/commands', (req, res) => {
@@ -132,6 +145,10 @@ app.get('/commands', (req, res) => {
 
 app.get('/search', (req, res) => {
     res.render('search')
+})
+
+app.get('/test', (req, res) => {
+  res.render('test')
 })
 
 app.get('/code', (req, res) => {
