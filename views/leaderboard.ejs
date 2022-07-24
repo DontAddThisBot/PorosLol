@@ -55,24 +55,11 @@
         <h3 style = "position:relative; left:40px; top:-50px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#9</span></h3>
         <h3 style = "position:relative; left:40px; top:-50px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#10</span></h3>
 
-        <h3 style = "position:relative; left:250px; top:-550px;text-align: center;right:0;"><%= porosLB1 %></h3>
-
-        <h3 style = "position:relative; left:250px; top:-515px;text-align: center;right:0;"><%= porosLB2 %></h3>
-
-        <h3 style = "position:relative; left:250px; top:-485px;text-align: center;right:0;"><%= porosLB3 %></h3>
-
-        <h3 style = "position:relative; left:250px; top:-490px;text-align: center;right:0;"><%= porosLB4 %></h3>
-
-        <h3 style = "position:relative; left:250px; top:-490px;text-align: center;right:0;"><%= porosLB5 %></h3>
-
-        <h3 style = "position:relative; left:250px; top:-490px;text-align: center;right:0;"><%= porosLB6 %></h3>
-        <h3 style = "position:relative; left:250px; top:-490px;text-align: center;right:0;"><%= porosLB7 %></h3>
-
-        <h3 style = "position:relative; left:250px; top:-490px;text-align: center;right:0;"><%= porosLB8 %></h3>
-
-        <h3 style = "position:relative; left:250px; top:-490px;text-align: center;right:0;"><%= porosLB9 %></h3>
-
-        <h3 style = "position:relative; left:250px; top:-490px;text-align: center;right:0;"><%= porosLB10 %></h3>
+        <% for (const data of topUsers) { %>
+            <h3 style="position:relative; left:250px; top:-550px;text-align: center;right:0;">
+                <%= data %>
+            </h3>
+        <% } %>
     </center>
     <center>
         <h2 style="position:relative; left:-350px; top:-770px; width: 600px;height:200px;">Within <span style="color:#141414;background-color: transparent;">Top 10</span> Gets lower cooldowns <br>
