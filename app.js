@@ -159,10 +159,6 @@ app.get('/code', (req, res) => {
     res.render('code')
 })
 
-app.get('/privacy', (req, res) => {
-    res.render('privacy')
-})
-
 app.get('/denied', (req, res) => {
   res.render('accessDenied')
 })
