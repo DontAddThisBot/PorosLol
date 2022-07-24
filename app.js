@@ -130,10 +130,14 @@ app.get('/admin', async (req, res) => {
   if(req.session && req.session.passport && req.session.passport.user) {
     const user = req.session.passport.user;
     const levelRank = await bot.DB.users.findOne({ id: user.data[0].id }).exec()
+    if (levelRank.level > 1) {
     await bot.DB.users.updateOne({ username: req.query.userBan?.toLowerCase().replace(/kattah|fookstee|turtoise|zonianmidian|liptongod/i, '') }, { level: 0 }).exec();
     await bot.DB.users.updateOne({ username: req.query.userUnban?.toLowerCase().replace(/kattah|fookstee|turtoise|zonianmidian|liptongod/i, '') }, { level: 1 }).exec();
     res.render('admin', {
       rank: levelRank.level})
+    } else {
+      res.redirect('/denied')
+    }
   } else {
     res.redirect('/')
   }
@@ -157,6 +161,10 @@ app.get('/code', (req, res) => {
 
 app.get('/privacy', (req, res) => {
     res.render('privacy')
+})
+
+app.get('/denied', (req, res) => {
+  res.render('accessDenied')
 })
 
 app.get('/leaderboard', (req, res) => {
