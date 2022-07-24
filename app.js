@@ -19,7 +19,6 @@ bot.DB = require("./util/db.js");
 require("./api/server");
 const humanizeDuration = require('./humanizeDuration');
 const axios = require('axios');
-const utils = require("./util/utils.js");
 
 const app = express()
 const port = 3001
@@ -96,11 +95,11 @@ app.get('', async (req, res) => {
     const channels = await bot.DB.channels.find({}).exec()
     if(req.session && req.session.passport && req.session.passport.user) {
         const user = req.session.passport.user;
-        const levelRank = await bot.DB.users.findOne({ id: await utils.getUID(user.data[0].login) }).exec()
+        const levelRank = await bot.DB.users.findOne({ id: user.data[0].id }).exec()
         if (!levelRank) {
             const userdata =
             new bot.DB.users({
-                id: await utils.getUID(user.data[0].login),
+                id: user.data[0].id,
                 username: user.data[0].login,
                 firstSeen: new Date(),
                 prefix: "|",
