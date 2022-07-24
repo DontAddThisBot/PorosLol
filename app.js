@@ -19,6 +19,7 @@ bot.DB = require("./util/db.js");
 require("./api/server");
 const humanizeDuration = require('./humanizeDuration');
 const axios = require('axios');
+const utils = require("./util/utils.js");
 
 const app = express()
 const port = 3001
@@ -95,7 +96,21 @@ app.get('', async (req, res) => {
     const channels = await bot.DB.channels.find({}).exec()
     if(req.session && req.session.passport && req.session.passport.user) {
         const user = req.session.passport.user;
-        const levelRank = await bot.DB.users.findOne({ username: user.data[0].login }).exec()
+        const levelRank = await bot.DB.users.findOne({ id: await utils.getUID(user.data[0].login) }).exec()
+        if (!levelRank) {
+            const userdata =
+            new bot.DB.users({
+                id: await utils.getUID(user.data[0].login),
+                username: user.data[0].login,
+                firstSeen: new Date(),
+                prefix: "|",
+                level: 1,
+            });
+            await userdata.save();
+            res.render('index', {
+              channels: channels.length.toLocaleString(),
+          })
+        } else {
           res.render('success', {
             username: user.data[0].display_name,
             avatar: user.data[0].profile_image_url,
@@ -103,6 +118,7 @@ app.get('', async (req, res) => {
             channels: channels.length.toLocaleString(),
             rank: levelRank.level,
           });
+        }
       } else {
         res.render('index', {
             channels: channels.length.toLocaleString(),

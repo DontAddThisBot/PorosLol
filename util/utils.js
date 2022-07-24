@@ -7,3 +7,10 @@ exports.getPFP = async (userID) => {
     if (!userData.body.id) return null
     return userData.body.logo
 };
+
+exports.getUID = async (username) => {
+    if (!username) return null
+    userData = await got(`https://api.ivr.fi/twitch/resolve/${encodeURIComponent(username)}`, { responseType: 'json', throwHttpErrors: false })
+    if (!userData.body.id) return null
+    return userData.body.id
+};
