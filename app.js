@@ -133,7 +133,7 @@ app.get("", async (req, res) => {
     }
   } else {
     res.render("index", {
-      // if login faile
+      // if login failed
       channels: channels.length.toLocaleString(),
     });
   }
