@@ -103,6 +103,11 @@ app.get(
 
 app.get("", async (req, res) => {
   const channels = await bot.DB.channels.find({}).exec();
+  const poroData = await bot.DB.poroCount.find({}).exec();
+  let sum = 0;
+  for (const xd of poroData) {
+      sum += xd.poroCount;
+  }
   if (req.session && req.session.passport && req.session.passport.user) {
     const user = req.session.passport.user;
     const levelRank = await bot.DB.users
@@ -120,6 +125,7 @@ app.get("", async (req, res) => {
       res.render("index", {
         // if login success but not in database user must retry.
         channels: channels.length.toLocaleString(),
+        allPoros: sum
       });
     } else {
       res.render("success", {
@@ -129,12 +135,14 @@ app.get("", async (req, res) => {
         bio: user.data[0].description,
         channels: channels.length.toLocaleString(),
         rank: levelRank.level,
+        allPoros: sum
       });
     }
   } else {
     res.render("index", {
       // if login failed
       channels: channels.length.toLocaleString(),
+      allPoros: sum
     });
   }
 });
@@ -201,15 +209,7 @@ app.get("/leaderboard", (req, res) => {
   bot.DB.poroCount.find({}).exec(function (err, kekw) {
     if (err) throw err;
 
-    const topUsers = kekw
-      .sort(
-        (a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount
-      )
-      .slice(0, 10)
-      .map(
-        (user) =>
-          `[P:${user.poroPrestige}] ${user.username} - ${user.poroCount}`
-      );
+    const topUsers = kekw.sort((a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount).slice(0, 10).map((user) =>`[P:${user.poroPrestige}] ${user.username} - ${user.poroCount}`);
 
     res.render("leaderboard", { topUsers });
   });
