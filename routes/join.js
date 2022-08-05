@@ -87,12 +87,6 @@ router.post(`/api/bot/join`, async (req, res) => {
             success: true,
         });
     }
-
-    // A user exists and they are already joined / up to date username
-    return res.status(409).json({
-        success: false,
-        message: 'Already joined',
-    });
-});
+})
 
 module.exports = router;

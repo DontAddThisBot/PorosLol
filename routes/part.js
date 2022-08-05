@@ -41,12 +41,6 @@ router.post(`/api/bot/part`, async (req, res) => {
             success: true,
         });
     }
-
-    // A user exists and they are already joined / up to date username
-    return res.status(409).json({
-        success: false,
-        message: 'Already parted',
-    });
-});
+})
 
 module.exports = router;

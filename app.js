@@ -15,7 +15,6 @@ const CALLBACK_URL = process.env.CALLBACK_URL;
 global.bot = {};
 bot.Redis = require("./util/redis.js");
 bot.DB = require("./util/db.js");
-require("./api/server");
 const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
 
