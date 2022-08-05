@@ -11,9 +11,9 @@ router.post(`/api/bot/join`, async (req, res) => {
         });
     }
 
-    const {username} = req.session.passport.user.data[0];
+    const {login} = req.session.passport.user.data[0];
 
-    const r = await joinChannelByUsername(username);
+    const r = await joinChannelByUsername(login);
     if (!r.success) {
         return res.json({
             success: false,

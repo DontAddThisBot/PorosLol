@@ -52,7 +52,6 @@ OAuth2Strategy.prototype.userProfile = function (accessToken, done) {
   request(options, function (error, response, body) {
     if (response && response.statusCode == 200) {
       done(null, JSON.parse(body));
-      console.log(JSON.parse(body));
     } else {
       done(JSON.parse(body));
     }
@@ -112,6 +111,7 @@ app.get("", async (req, res) => {
       sum += xd.poroCount;
   }
   if (req.session && req.session.passport && req.session.passport.user) {
+    console.log(req.session.passport.user.data[0])
     const user = req.session.passport.user;
     const levelRank = await bot.DB.users
       .findOne({ id: user.data[0].id })

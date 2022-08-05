@@ -11,9 +11,9 @@ router.post(`/api/bot/part`, async (req, res) => {
         });
     }
 
-    const {username} = req.session.passport.user.data[0];
+    const {login} = req.session.passport.user.data[0];
 
-    const r = await partChannelByUsername(username);
+    const r = await partChannelByUsername(login);
     if (!r.success) {
         return res.json({
             success: false,
