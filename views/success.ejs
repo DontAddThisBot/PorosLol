@@ -12,7 +12,7 @@
 </head>
 <script src="js/mainpage.js">
 </script>
-<script src="rpc/dontaddthisbot.js">
+<script src="js/botcmds.js">
 </script>
 <script>
     var username = "<%= username %>";
@@ -53,8 +53,8 @@
             <h1 style = "position:relative; left:-320px; top:150px;text-align: center;right:0;">DontAddThisBot <h2 style = "position:relative; left:-320px; top:120px;text-align: center;right:0;">is a multi-channel<br> variety and utility fun bot. </h2></h1>
             <h3 style = "position:relative; left:-320px; top:110px;text-align: center;right:0;">Active Channels: <%= channels %></h3>
             <h3 style = "position:relative; left:-320px; top:100px;text-align: center;right:0;">Farmed Total Poros: <%= allPoros %></h3>
-            <input type="button" class="btn btn-primary" value="Join" onclick=joinChannelByUsername(username) />
-            <input type="button" class="btn btn-primary" value="Part" onclick=partChannelByUsername(username) />
+            <button onclick="join()">join</button>
+            <button onclick="part()">part</button>
 
             <h3 style = "position:relative; left:-320px; top:120px;text-align: center;right:0;">Contact <a style="color:#00B9FA " href="https://www.twitch.tv/kattah" target="_blank">@Kattah</a> if you are a moderator <br> wishing it to be added in a chat. </h3>
 

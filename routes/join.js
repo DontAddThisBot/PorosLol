@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const { joinChannelByUsername } = require('../rpc/dontaddthisbot')
 
 router.post(`/api/bot/join`, async (req, res) => {
-    
+
     if (!req.session || !req.session.passport || !req.session.passport.user) {
         return res.status(401).json({
             success: false,

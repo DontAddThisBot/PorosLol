@@ -17,6 +17,8 @@ bot.Redis = require("./util/redis.js");
 bot.DB = require("./util/db.js");
 const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
+const join = require('./routes/join')
+const part = require('./routes/part')
 
 const app = express();
 const port = 3001;
@@ -26,11 +28,13 @@ app.use(
   session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })
 );
 app.use(express.static("public"));
+app.use(passport.session());
+app.use(passport.initialize());
 app.use("/css", express.static(__dirname + "public/css"));
 app.use("/js", express.static(__dirname + "public/js"));
 app.use("/img", express.static(__dirname + "public/img"));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(join)
+app.use(part)
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
