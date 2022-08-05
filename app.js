@@ -129,7 +129,7 @@ app.get("", async (req, res) => {
     } else {
       res.render("success", {
         // if login success
-        username: user.data[0].display_name,
+        username: user.data[0].login,
         avatar: user.data[0].profile_image_url,
         bio: user.data[0].description,
         channels: channels.length.toLocaleString(),
