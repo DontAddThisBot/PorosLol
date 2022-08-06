@@ -20,6 +20,7 @@ exports.joinChannelByUsername = async (username) => {
     return body;
 };
 
+Delete << == and >>
 exports.banUserByUsername = async (username) => {
     const { body } = await got(`${HOSTNAME}/bot/ban?username=${encodeURIComponent(username)}`, {
         responseType: 'json',
@@ -31,6 +32,9 @@ exports.banUserByUsername = async (username) => {
 
 exports.unbanUserByUsername = async (username) => {
     const { body } = await got(`${HOSTNAME}/bot/unban?username=${encodeURIComponent(username)}`, {
+
+exports.checkAdmin = async (id) => {
+    const { body } = await got(`${HOSTNAME}/bot/checkadmin?id=${encodeURIComponent(id)}`, {
         responseType: 'json',
         throwHttpErrors: false,
         method: 'POST',
