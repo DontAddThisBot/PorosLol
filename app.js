@@ -15,9 +15,10 @@ const CALLBACK_URL = process.env.CALLBACK_URL;
 global.bot = {};
 bot.Redis = require("./util/redis.js");
 bot.DB = require("./util/db.js");
-require("./api/server");
 const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
+const join = require('./routes/join')
+const part = require('./routes/part')
 
 const app = express();
 const port = 3001;
@@ -27,11 +28,13 @@ app.use(
   session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })
 );
 app.use(express.static("public"));
+app.use(passport.session());
+app.use(passport.initialize());
 app.use("/css", express.static(__dirname + "public/css"));
 app.use("/js", express.static(__dirname + "public/js"));
 app.use("/img", express.static(__dirname + "public/img"));
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(join)
+app.use(part)
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
@@ -49,7 +52,6 @@ OAuth2Strategy.prototype.userProfile = function (accessToken, done) {
   request(options, function (error, response, body) {
     if (response && response.statusCode == 200) {
       done(null, JSON.parse(body));
-      console.log(JSON.parse(body));
     } else {
       done(JSON.parse(body));
     }
@@ -109,6 +111,7 @@ app.get("", async (req, res) => {
       sum += xd.poroCount;
   }
   if (req.session && req.session.passport && req.session.passport.user) {
+    console.log(req.session.passport.user.data[0])
     const user = req.session.passport.user;
     const levelRank = await bot.DB.users
       .findOne({ id: user.data[0].id })
@@ -130,7 +133,7 @@ app.get("", async (req, res) => {
     } else {
       res.render("success", {
         // if login success
-        username: user.data[0].display_name,
+        username: user.data[0].login,
         avatar: user.data[0].profile_image_url,
         bio: user.data[0].description,
         channels: channels.length.toLocaleString(),
