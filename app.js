@@ -19,6 +19,7 @@ const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
 const join = require('./routes/join')
 const part = require('./routes/part')
+const ban = require('./routes/ban')
 
 const app = express();
 const port = 3001;
@@ -35,6 +36,7 @@ app.use("/js", express.static(__dirname + "public/js"));
 app.use("/img", express.static(__dirname + "public/img"));
 app.use(join)
 app.use(part)
+app.use(ban)
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
