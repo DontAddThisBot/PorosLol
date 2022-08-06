@@ -1,5 +1,10 @@
-async function join() {
-    const r = await fetch('/api/bot/join', {
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('part').addEventListener('click', part);
+    document.getElementById('join').addEventListener('click', join);
+});
+
+async function part() {
+    const r = await fetch('/api/bot/part', {
         method: 'POST',
     });
     const b = await r.json();
@@ -10,8 +15,8 @@ async function join() {
     }
 }
 
-async function part() {
-    const r = await fetch('/api/bot/part', {
+async function join() {
+    const r = await fetch('/api/bot/join', {
         method: 'POST',
     });
     const b = await r.json();

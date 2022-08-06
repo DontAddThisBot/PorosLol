@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="css/main.css">
 
 </head>
-<script src="js/mainpage.js">
-</script>
-<script src="js/botcmds.js">
-</script>
-<script>
-    var username = "<%= username %>";
-</script>
     <body>
+        <script src="js/mainpage.js">
+        </script>
+        <script src="js/botcmds.js">
+        </script>
+        <script>
+            var username = "<%= username %>";
+        </script>
     <div>
         <center>
             <table>
@@ -53,9 +53,11 @@
             <h1 style = "position:relative; left:-320px; top:150px;text-align: center;right:0;">DontAddThisBot <h2 style = "position:relative; left:-320px; top:120px;text-align: center;right:0;">is a multi-channel<br> variety and utility fun bot. </h2></h1>
             <h3 style = "position:relative; left:-320px; top:110px;text-align: center;right:0;">Active Channels: <%= channels %></h3>
             <h3 style = "position:relative; left:-320px; top:100px;text-align: center;right:0;">Farmed Total Poros: <%= allPoros %></h3>
-            <button onclick="join()" style = "position:relative; left:-350px; top:100px;text-align: center;right:0;">join</button>
 
-            <button onclick="part()" style = "position:relative; left:-300px; top:100px;text-align: center;right:0;">part</button>
+            <button id="join" style = "position:relative; left:-350px; top:100px;text-align: center;right:0;">join</button>
+            <button id="part"  style = "position:relative; left:-300px; top:100px;text-align: center;right:0;">part</button>
+
+            
 
             <h3 style = "position:relative; left:-320px; top:120px;text-align: center;right:0;">Contact <a style="color:#00B9FA " href="https://www.twitch.tv/kattah" target="_blank">@Kattah</a> if you are a moderator <br> wishing it to be added in a chat. </h3>
 
