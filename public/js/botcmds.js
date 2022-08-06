@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('part').addEventListener('click', part);
+});
+document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('join').addEventListener('click', join);
 });
 
