@@ -201,7 +201,11 @@ app.get("/test", (req, res) => {
 });
 
 app.get("/code", (req, res) => {
-  res.render("code");
+  if (req.session && req.session.passport && req.session.passport.user) {
+    res.render("code");
+  } else {
+    res.render("authorize");
+  }
 });
 
 app.get("/denied", (req, res) => {

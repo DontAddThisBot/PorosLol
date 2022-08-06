@@ -19,3 +19,12 @@ exports.joinChannelByUsername = async (username) => {
     });
     return body;
 };
+
+exports.checkAdmin = async (id) => {
+    const { body } = await got(`${HOSTNAME}/bot/checkadmin?id=${encodeURIComponent(id)}`, {
+        responseType: 'json',
+        throwHttpErrors: false,
+        method: 'POST',
+    });
+    return body;
+};
