@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { banUserByUsername } = require('../rpc/dontaddthisbot')
+const { checkAdmin } = require('../rpc/dontaddthisbot')
 
-router.post(`/api/bot/join`, async (req, res) => {
+router.post(`/api/bot/ban`, async (req, res) => {
 
     if (!req.session || !req.session.passport || !req.session.passport.user) {
         return res.status(401).json({
@@ -11,9 +12,18 @@ router.post(`/api/bot/join`, async (req, res) => {
         });
     }
 
-    const username = document.getElementById('username').value;
+    const {id, login} = req.session.passport.user.data[0];
+    const admin = await checkAdmin(id);
+    console.log(admin)
+    if (!admin.success || !admin.isAdmin) {
+        return res.status(401).json({
+            success: false,
+            message: 'Unauthorized',
+        });
+    }
 
-    const r = await banUserByUsername(username);
+
+    const r = await banUserByUsername(login);
     if (!r.success) {
         return res.json({
             success: false,
