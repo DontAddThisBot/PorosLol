@@ -12,6 +12,8 @@
 </head>
 <script src="js/mainpage.js">
 </script>
+<script src="js/admincmds.js">
+</script>
 <body>
 <div>
     <center>
@@ -40,20 +42,15 @@
         </table>
     </center>
     <center style = "position:relative; left:-30px; top:150px;text-align: center;right:0;">
-            <a style = "position:relative; top:-10px;right:170px;">Ban User</a>
-            <a style = "position:relative; top:-10px;right:-170px;">Unban User</a>
-                <thead>
-                    <form class="d-flex">
-                        <input class="form-control" name="userBan"  type="text"  style="max-width: 250px;position:relative; right:210px;" autofocus="" required=""
-                               maxlength="26">
-                        <input class="btn btn-primary" type="submit" value="Ban" style="color:red;position:relative; right:210px;" >
+                <thead style = "position:relative; top:-10px;right:170px;">
+                    <form>
+                        <input id="admin-ban-user-username-input" type="text" />
+                        <button id="ban">ban</button>
                     </form>
-                    <form class="d-flex">
-                        <input class="form-control" name="userUnban" type="text"   style="max-width: 250px;position:relative; right:-210px;top:-20px" autofocus="" required=""
-                               maxlength="26">
-                        <input class="btn btn-primary" type="submit" value="Unban" style="color:rgb(0, 255, 26);position:relative; right:-210px;top:-20px" >
+                    <form> 
+                        <input id="admin-unban-user-username-input" type="text"/>
+                        <button id="unban">unban</button>
                     </form>
-                        <img src="img/MODS.gif"width="140" height="140"style = "position:relative; left:0px; top:80px;text-align: center;right:0;">
                 </thead>
     </center>
         

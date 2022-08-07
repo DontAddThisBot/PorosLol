@@ -20,11 +20,11 @@
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
-    "got": "^9.6.0",
     "humanize-duration": "^3.27.2",
     "ioredis": "^5.0.6",
     "mongoose": "^6.4.0",
     "morgan": "^1.10.0",
+    "node-fetch": "2",
     "passport": "^0.6.0",
     "passport-oauth": "^1.0.0",
     "request": "^2.88.2"

@@ -19,6 +19,8 @@ const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
 const join = require('./routes/join')
 const part = require('./routes/part')
+const ban = require('./routes/ban')
+const unban = require('./routes/unban')
 
 const app = express();
 const port = 3001;
@@ -35,6 +37,8 @@ app.use("/js", express.static(__dirname + "public/js"));
 app.use("/img", express.static(__dirname + "public/img"));
 app.use(join)
 app.use(part)
+app.use(ban)
+app.use(unban)
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
@@ -157,26 +161,6 @@ app.get("/admin", async (req, res) => {
       .findOne({ id: user.data[0].id })
       .exec();
     if (levelRank.level > 1) {
-      await bot.DB.users
-        .updateOne(
-          {
-            username: req.query.userBan
-              ?.toLowerCase()
-              .replace(/kattah|fookstee|turtoise|zonianmidian|liptongod/i, ""),
-          },
-          { level: 0 }
-        )
-        .exec();
-      await bot.DB.users
-        .updateOne(
-          {
-            username: req.query.userUnban
-              ?.toLowerCase()
-              .replace(/kattah|fookstee|turtoise|zonianmidian|liptongod/i, ""),
-          },
-          { level: 1 }
-        )
-        .exec();
       res.render("admin", {
         rank: levelRank.level,
       });

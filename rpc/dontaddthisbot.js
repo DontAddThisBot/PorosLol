@@ -1,30 +1,43 @@
-const got = require('got');
+const fetch = require('node-fetch');
 
 const HOSTNAME = 'http://localhost:3002/api';
 
 exports.partChannelByUsername = async (username) => {
-    const { body } = await got(`${HOSTNAME}/bot/part?username=${encodeURIComponent(username)}`, {
-        responseType: 'json',
-        throwHttpErrors: false,
+    const r = await fetch(`${HOSTNAME}/bot/part?username=${encodeURIComponent(username)}`, {
         method: 'POST',
     });
-    return body;
+    const b = await r.json();
+    return b;
 };
 
 exports.joinChannelByUsername = async (username) => {
-    const { body } = await got(`${HOSTNAME}/bot/join?username=${encodeURIComponent(username)}`, {
-        responseType: 'json',
-        throwHttpErrors: false,
+    const r = await fetch(`${HOSTNAME}/bot/join?username=${encodeURIComponent(username)}`, {
         method: 'POST',
     });
-    return body;
+    const b = await r.json();
+    return b;
+};
+
+exports.banUserByUsername = async (username) => {
+    const r = await fetch(`${HOSTNAME}/bot/ban?username=${encodeURIComponent(username)}`, {
+        method: 'POST',
+    });
+    const b = await r.json();
+    return b;
+};
+
+exports.unbanUserByUsername = async (username) => {
+    const r = await fetch(`${HOSTNAME}/bot/unban?username=${encodeURIComponent(username)}`, {
+        method: 'POST',
+    });
+    const b = await r.json();
+    return b;
 };
 
 exports.checkAdmin = async (id) => {
-    const { body } = await got(`${HOSTNAME}/bot/checkadmin?id=${encodeURIComponent(id)}`, {
-        responseType: 'json',
-        throwHttpErrors: false,
-        method: 'POST',
-    });
-    return body;
+    const r = await fetch(`${HOSTNAME}/bot/checkadmin?id=${encodeURIComponent(id)}`, {
+        method: "POST",
+    })
+    const b = await r.json();
+    return b;
 };
