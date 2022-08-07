@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function ban() {
-    const r = await fetch('/api/bot/ban', {
+    const username = document.getElementById('admin-ban-user-username-input').value
+    console.log(username)
+    const r = await fetch(`/api/bot/ban?username=${encodeURIComponent(username)}`, {
         method: 'POST',
     });
     const b = await r.json();
@@ -16,7 +18,9 @@ async function ban() {
 }
 
 async function unban() {
-    const r = await fetch('/api/bot/unban', {
+    const username = document.getElementById('admin-unban-user-username-input').value
+    console.log(username)
+    const r = await fetch(`/api/bot/unban?username=${encodeURIComponent(username)}`, {
         method: 'POST',
     });
     const b = await r.json();

@@ -12,9 +12,8 @@ router.post(`/api/bot/ban`, async (req, res) => {
         });
     }
 
-    const {id, login} = req.session.passport.user.data[0];
+    const {id} = req.session.passport.user.data[0];
     const admin = await checkAdmin(id);
-    console.log(admin)
     if (!admin.success || !admin.isAdmin) {
         return res.status(401).json({
             success: false,
@@ -22,8 +21,14 @@ router.post(`/api/bot/ban`, async (req, res) => {
         });
     }
 
-
-    const r = await banUserByUsername(login);
+    const {username} = req.query;
+    if (!username) {
+        return res.status(400).json({
+            success: false,
+            message: "malformed username parameter",
+        });
+    }
+    const r = await banUserByUsername(username);
     if (!r.success) {
         return res.json({
             success: false,
