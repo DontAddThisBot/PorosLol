@@ -113,18 +113,17 @@ app.get(
 );
 
 app.get("", async (req, res) => {
-  const channels = await bot.DB.channels.find({}).exec();
-  const poroData = await bot.DB.poroCount.find({}).exec();
-  let sum = 0;
-  for (const xd of poroData) {
-      sum += xd.poroCount;
-  }
+  const data = await nodeFetch(`http://localhost:3003/api/bot/channels`, {
+        method: "GET",
+    });
+  const channels = await data.json()
   if (req.session && req.session.passport && req.session.passport.user) {
-    console.log(req.session.passport.user.data[0])
+    //console.log(req.session.passport.user.data[0])
     const {id, login, profile_image_url} = req.session.passport.user.data[0];
-    const levelRank = await bot.DB.users
-      .findOne({ id: id })
-      .exec();
+    const data = await nodeFetch(`http://localhost:3003/api/bot/users/${login}`, {
+        method: "GET",
+    });
+    const levelRank = await data.json()
     if (!levelRank) {
       const userdata = new bot.DB.users({
         id: id,
@@ -136,8 +135,8 @@ app.get("", async (req, res) => {
       await userdata.save();
       res.render("index", {
         // if login success but not in database user must retry.
-        channels: channels.length.toLocaleString(),
-        allPoros: sum
+        channels: channels.channelCount.toLocaleString(),
+        allPoros: channels.totalPoros
       });
     } else {
       const data = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
@@ -150,8 +149,8 @@ app.get("", async (req, res) => {
         res.render('success', {
           username: login,
           rank: levelRank.level,
-          channels: channels.length.toLocaleString(),
-          allPoros: sum,
+          channels: channels.channelCount.toLocaleString(),
+          allPoros: channels.totalPoros,
           avatar: profile_image_url,
           inChannel: false,
         });
@@ -160,8 +159,8 @@ app.get("", async (req, res) => {
         res.render('success', {
           username: login,
           rank: levelRank.level,
-          channels: channels.length.toLocaleString(),
-          allPoros: sum,
+          channels: channels.channelCount.toLocaleString(),
+          allPoros: channels.totalPoros,
           avatar: profile_image_url,
           inChannel: true,
         })
@@ -170,18 +169,19 @@ app.get("", async (req, res) => {
   } else {
     res.render("index", {
       // If login failed, then idk?
-      channels: channels.length.toLocaleString(),
-      allPoros: sum
+      channels: channels.channelCount.toLocaleString(),
+      allPoros: channels.totalPoros,
     });
   };
 });
 
 app.get("/admin", async (req, res) => {
   if (req.session && req.session.passport && req.session.passport.user) {
-    const user = req.session.passport.user;
-    const levelRank = await bot.DB.users
-      .findOne({ id: user.data[0].id })
-      .exec();
+    const {login} = req.session.passport.user.data[0];
+    const data = await nodeFetch(`http://localhost:3003/api/bot/users/${login}`, {
+        method: "GET",
+    });
+    const levelRank = await data.json()
     if (levelRank.level > 1) {
       // If user is above level 1, render admin page.
       res.render("admin", {
@@ -259,43 +259,35 @@ app.get("/dashboard", async (req, res) => {
   }
 });
 
-app.get("/leaderboard", (req, res) => {
-  bot.DB.poroCount.find({}).exec(function (err, poro) {
-    if (err) throw err;
-
-    const topUsers = poro.sort((a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount).slice(0, 10).map((user) =>`[P:${user.poroPrestige}] ${user.username} - ${user.poroCount}`);
-
-    res.render("leaderboard", { topUsers });
-  });
+app.get("/leaderboard", async (req, res) => {
+    const data = await nodeFetch(`http://localhost:3003/api/bot/leaderboard`, {
+          method: "GET",
+      });
+    const b = await data.json()
+    res.render("leaderboard", {
+      leaderboard: b.topUsers,
+    });
 });
 
 app.get("/channel", async (req, res) => {
-  const kekw2 = await bot.DB.poroCount
-    .findOne({ username: req.query.user.toLowerCase() })
-    .exec();
-  if (!kekw2) {
+  const user = req.query.user.toLocaleLowerCase()
+  const data = await nodeFetch(`http://localhost:3003/api/bot/porocount/${user}`, {
+    method: "GET",
+  });
+  const poroCount = await data.json();
+  if (!poroCount.success) {
     return res.render("error");
   }
-  var today = new Date();
-  const timestamp = new Date(kekw2.joinedAt);
-  const diffTime = Math.abs(today - timestamp);
-  const registerDate = humanizeDuration(diffTime);
+  const joinedAt = humanizeDuration(new Date() - Date.parse(poroCount.joinedAt));
   const api = await axios.get(
     `https://api.ivr.fi/twitch/resolve/${req.query.user.toLowerCase()}`
   );
-  const poroData = await bot.DB.poroCount.find({}).exec();
-  const myRank =
-    poroData
-      .sort(
-        (a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount
-      )
-      .findIndex((user) => user.username == req.query.user.toLowerCase()) + 1;
   res.render("channel", {
-    xd: kekw2,
-    register: registerDate,
+    poroInfo: poroCount,
+    register: joinedAt,
     api: api.data,
-    myPoroRank: myRank,
-    AllPoroRank: poroData.length.toLocaleString(),
+    myPoroRank: poroCount.userRank,
+    AllPoroRank: poroCount.totalRank,
   });
 });
 
