@@ -37,35 +37,31 @@
 
             </thead>
         </table>
-    </center>
-    <center>
-        <h1 style = "position:relative; left:-50px; top:40px;text-align: center;right:0;">Leaderboard</h1>
-        <h2 style = "position:relative; left:-350px; top:100px;text-align: center;right:0;">Showing Top 10 <br>poro meat count<br><br><span style="color:#FFD700;background-color: transparent;">Top 1</span> Gets a special <br>/me response from the bot
+        <h1 style="position:relative; left:-100px; top:50px;text-align: center;right:0;">Leaderboard</h1>
+        <div style="position:relative; left:-450px; top:60px;text-align: center;right:0;">
+            <h2>Showing Top 10 <br>poro meat count<br><br><span style="color:#FFD700;background-color: transparent;">Top 1</span> Gets a special <br>/me response from the bot
             </h2>
-    </center>
-    <center>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#FFD700;background-color: transparent;">#1</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#C0C0C0;background-color: transparent;">#2</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#CD7F32;background-color: transparent;">#3</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#4</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#5</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#6</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#7</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#8</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#9</span></h3>
-        <h3 style = "position:relative; left:40px; top:-100px;text-align: center;right:0;"><span style="color:#141414;background-color: transparent;">#10</span></h3>
+            <h2>Within <span style="color:#141414;background-color: transparent;">Top 10</span> Gets lower cooldowns<br></h2>
+            <img src="https://i.imgur.com/3vuffNG.gif"style="width: 600px;height:200px;">
+        </div>
+        <div style="position:relative; left:50px; top:-430px;text-align: center;right:0;">
+            <h3><span style="color:#FFD700;background-color: transparent;">#1</span></h3>
+            <h3><span style="color:#C0C0C0;background-color: transparent;">#2</span></h3>
+            <h3><span style="color:#CD7F32;background-color: transparent;">#3</span></h3>
+            <h3><span style="color:#141414;background-color: transparent;">#4</span></h3>
+            <h3><span style="color:#141414;background-color: transparent;">#5</span></h3>
+            <h3><span style="color:#141414;background-color: transparent;">#6</span></h3>
+            <h3><span style="color:#141414;background-color: transparent;">#7</span></h3>
+            <h3><span style="color:#141414;background-color: transparent;">#8</span></h3>
+            <h3><span style="color:#141414;background-color: transparent;">#9</span></h3>
+            <h3><span style="color:#141414;background-color: transparent;">#10</span></h3>
 
-        <% for (const data of topUsers) { %>
-            <h3 style="position:relative; left:250px; top:-550px;text-align: center;right:0;">
-                <%= data %>
-            </h3>
-        <% } %>
-    </center>
-    <center>
-        <h2 style="position:relative; left:-350px; top:-770px; width: 600px;height:200px;">Within <span style="color:#141414;background-color: transparent;">Top 10</span> Gets lower cooldowns <br>
-        </h2>
-            <img src="https://i.imgur.com/3vuffNG.gif"style="position:relative; left:-350px; top:-900px; width: 600px;height:200px;">
-        
+            <% for (const data of leaderboard) { %>
+                <h3 style="position:relative; left:200px; top:-440px;text-align: center;right:0;">
+                    <%= data %>
+                </h3>
+            <% } %>
+    </div>
     </center>
 </div>
 </body>
