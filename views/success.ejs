@@ -8,6 +8,8 @@
     <link rel="icon" href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 ">
     <title>DontAddThisBot</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/joinButton.css">
+    <link rel="stylesheet" href="css/partButton.css">
 
 </head>
     <body>
@@ -17,6 +19,12 @@
         </script>
         <script>
             var username = "<%= username %>";
+            function disableJoin () {
+                document.getElementById("join").disabled = true;
+            }
+            function disablePart () {
+                document.getElementById("part").disabled = true;
+            }
         </script>
     <div>
         <center>
@@ -37,38 +45,32 @@
                     <a href="/search" style = "position:relative; left:220px; top:0px;text-align: center;right:0;">Search</a>
                 </tr>
                 <tr>
-                    <a  href=https://github.com/kattah7 target="_blank"><img src="img/githublogo.png"width="40" height="40"style = "position:relative; left:270px; top:10px;text-align: center;right:0;"></a>
+                    <a href="/dashboard" style = "position:relative; left:240px; top:0px;text-align: center;right:0;">Dashboard</a>
                 </tr>
                 <tr>
-                    <img onclick=openInfo() width="40" height="40"style = "position:relative; left:300px; top:10px;text-align: center;right:0;"src=<%= avatar %>>
-                    <a  hidden id="openInfo" style = "position:relative; left:255px; top:35px;text-align: center;right:0;">Username: <%= username %></a>
-                    <a  hidden id="openInfo2" style = "position:relative; left:105px; top:55px;text-align: center;right:0;">Level: <%= rank %></a>
+                    <a  href=https://github.com/kattah7 target="_blank"><img src="img/githublogo.png"width="40" height="40"style = "position:relative; left:270px; top:10px;text-align: center;right:0;"></a>
                 </tr>
 
 
                 </thead>
             </table>
         </center>
-        <center>
-            <h1 style = "position:relative; left:-320px; top:150px;text-align: center;right:0;">DontAddThisBot <h2 style = "position:relative; left:-320px; top:120px;text-align: center;right:0;">is a multi-channel<br> variety and utility fun bot. </h2></h1>
-            <h3 style = "position:relative; left:-320px; top:110px;text-align: center;right:0;">Active Channels: <%= channels %></h3>
-            <h3 style = "position:relative; left:-320px; top:100px;text-align: center;right:0;">Farmed Total Poros: <%= allPoros %></h3>
+        <center style="position:relative; left:-320px; top:150px;text-align: center;right:0;">
+            <h1>DontAddThisBot <h2>is a multi-channel<br> variety and utility fun bot. </h2></h1>
+            <h3>Active Channels: <%= channels %></h3>
+            <h3>Farmed Total Poros: <%= allPoros %></h3>
 
-            <button id="join" style = "position:relative; left:-350px; top:100px;text-align: center;right:0;">join</button>
-            <button id="part"  style = "position:relative; left:-300px; top:100px;text-align: center;right:0;">part</button>
+            <% if (!inChannel) { %>
+                    <button class="btn draw-border" id="join" onclick="disableJoin()">Click to Join</button>
+            <% } else { %>
+                    <button class="btn2 draw-border2" id="part" onclick="disablePart()">Click to Part</button>
+            <% } %>
 
-            
+            <h3>Contact <a style="color:#00B9FA " href="https://www.twitch.tv/kattah" target="_blank">@Kattah</a> if you are a moderator <br> wishing it to be added in a chat. </h3>
 
-            <h3 style = "position:relative; left:-320px; top:120px;text-align: center;right:0;">Contact <a style="color:#00B9FA " href="https://www.twitch.tv/kattah" target="_blank">@Kattah</a> if you are a moderator <br> wishing it to be added in a chat. </h3>
-
-        <h2>
-            <a href="/code">
-                <input type="image" src="img/Spin.gif"width="350" height="350"style = "position:relative; left:250px; top:-270px;text-align: center;right:0;" name="saveForm" class="btTxt submit" id="saveForm" />
+            <a href="/code" style="position:relative; left:650px; top:-400px;text-align: center;right:0;">
+                <input type="image" src="img/Spin.gif"width="350" height="350" name="saveForm" class="btTxt submit" id="saveForm" />
             </a>
-
-
-        </h2>
-        
         </center>
     </div>
     </body>

@@ -41,3 +41,19 @@ exports.checkAdmin = async (id) => {
     const b = await r.json();
     return b;
 };
+
+exports.poroOnly = async (id) => {
+    const r = await fetch(`${HOSTNAME}/bot/poro?id=${encodeURIComponent(id)}`, {
+        method: "POST",
+    })
+    const b = await r.json();
+    return b;
+};
+
+exports.offlineOnly = async (id) => {
+    const r = await fetch(`${HOSTNAME}/bot/offline?id=${encodeURIComponent(id)}`, {
+        method: "POST",
+    })
+    const b = await r.json();
+    return b;
+};

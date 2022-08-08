@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { poroOnly } = require('../rpc/dontaddthisbot')
+const { offlineOnly } = require('../rpc/dontaddthisbot')
 
-router.post(`/api/bot/poro`, async (req, res) => {
+router.post(`/api/bot/offline`, async (req, res) => {
 
     if (!req.session || !req.session.passport || !req.session.passport.user) {
         return res.status(401).json({
@@ -19,7 +19,7 @@ router.post(`/api/bot/poro`, async (req, res) => {
             message: "malformed username parameter",
         });
     }
-    const r = await poroOnly(id);
+    const r = await offlineOnly(id);
     if (!r.success) {
         return res.json({
             success: false,

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 ">
-    <title>DontAddThisBot - Code</title>
+    <title>DontAddThisBot - Denied</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/joinButton.css">
 
@@ -16,7 +16,7 @@
     </script>
     <script>
         function disableJoin () {
-            document.getElementById("joinOnCode").disabled = true;
+            document.getElementById("joinOnDashboard").disabled = true;
         }
     </script>
 <div>
@@ -44,42 +44,13 @@
 
             </thead>
         </table>
-        <table>
-            <thead>
-            <tr>
-                <a style = "position:relative; left:-50px; top:100px;text-align: center;right:0;">
-                    Today's hint: cannot believe my eyes
-                    
-                </a>
-            </tr>
-            </thead>
-        </table>
-        <table>
-            <thead>
-            <tr>
-                <a style = "position:relative; left:-50px; top:0px;text-align: center;right:0;">
-                        <div style = "position:relative; left:20px; top:130px;text-align: center;right:0;"href=https://twitch.tv/dontaddthisbot target="_blank">
-                            <br>
-                            <br>
-                            Following the bot on Twitch will give you free <span style="color:#FFD700;background-color: transparent;">100</span> poros
-                            <br>
-                            <br>
-                            
-                            Also <strong>adding the bot</strong> will also give you free <span style="color:#FFD700;background-color: transparent;">100</span> poros
-
-                            <br>
-                            <br>
-                            <% if (inChannel) { %>
-                                <strong>Thank you for adding the bot!</strong><img src="img/PogU.png"width="40" height="40">
-                            <% } else { %>
-                                <button class="btn draw-border" id="joinOnCode" onclick="disableJoin()">Click to Join</button>
-                            <% } %>
-                        </div>
-                </a>
-            </tr>
-            </thead>
-        </table>
     </center>
+    <center style = "position:relative; left:-30px; top:150px;text-align: center;right:0;">
+        <a style = "position:relative; top:-10px;">
+            <button class="btn draw-border" id="joinOnDashboard" onclick="disableJoin()">Click to Join</button>
+        </a>
+    </center>
+        
 </div>
 </body>
 </html>

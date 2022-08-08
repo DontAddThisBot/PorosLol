@@ -17,10 +17,13 @@ bot.Redis = require("./util/redis.js");
 bot.DB = require("./util/db.js");
 const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
+const nodeFetch = require("node-fetch");
 const join = require('./routes/join')
 const part = require('./routes/part')
 const ban = require('./routes/ban')
 const unban = require('./routes/unban')
+const poro = require('./routes/poros')
+const offline = require('./routes/offline')
 
 const app = express();
 const port = 3001;
@@ -39,6 +42,8 @@ app.use(join)
 app.use(part)
 app.use(ban)
 app.use(unban)
+app.use(poro)
+app.use(offline)
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
@@ -116,14 +121,14 @@ app.get("", async (req, res) => {
   }
   if (req.session && req.session.passport && req.session.passport.user) {
     console.log(req.session.passport.user.data[0])
-    const user = req.session.passport.user;
+    const {id, login, profile_image_url} = req.session.passport.user.data[0];
     const levelRank = await bot.DB.users
-      .findOne({ id: user.data[0].id })
+      .findOne({ id: id })
       .exec();
     if (!levelRank) {
       const userdata = new bot.DB.users({
-        id: user.data[0].id,
-        username: user.data[0].login,
+        id: id,
+        username: login,
         firstSeen: new Date(),
         prefix: "|",
         level: 1,
@@ -135,23 +140,40 @@ app.get("", async (req, res) => {
         allPoros: sum
       });
     } else {
-      res.render("success", {
-        // if login success
-        username: user.data[0].login,
-        avatar: user.data[0].profile_image_url,
-        bio: user.data[0].description,
-        channels: channels.length.toLocaleString(),
-        rank: levelRank.level,
-        allPoros: sum
+      const data = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
+              method: "GET",
       });
+      const b = await data.json()
+      //console.log(b)
+      if (!b.success) {
+        // If user doesnt have the bot added, reply with false.
+        res.render('success', {
+          username: login,
+          rank: levelRank.level,
+          channels: channels.length.toLocaleString(),
+          allPoros: sum,
+          avatar: profile_image_url,
+          inChannel: false,
+        });
+      } else {
+        // If user has the bot added, reply with true.
+        res.render('success', {
+          username: login,
+          rank: levelRank.level,
+          channels: channels.length.toLocaleString(),
+          allPoros: sum,
+          avatar: profile_image_url,
+          inChannel: true,
+        })
+      }
     }
   } else {
     res.render("index", {
-      // if login failed
+      // If login failed, then idk?
       channels: channels.length.toLocaleString(),
       allPoros: sum
     });
-  }
+  };
 });
 
 app.get("/admin", async (req, res) => {
@@ -161,13 +183,16 @@ app.get("/admin", async (req, res) => {
       .findOne({ id: user.data[0].id })
       .exec();
     if (levelRank.level > 1) {
+      // If user is above level 1, render admin page.
       res.render("admin", {
         rank: levelRank.level,
       });
     } else {
+      // If user is below level 1, render denied page.
       res.redirect("/denied");
     }
   } else {
+    // If user is not logged in, render homepage.
     res.redirect("/");
   }
 });
@@ -180,14 +205,27 @@ app.get("/search", (req, res) => {
   res.render("search");
 });
 
-app.get("/test", (req, res) => {
-  res.render("test");
-});
-
-app.get("/code", (req, res) => {
+app.get("/code", async (req, res) => {
   if (req.session && req.session.passport && req.session.passport.user) {
-    res.render("code");
+    const {login} = req.session.passport.user.data[0];
+    const data = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
+        method: "GET",
+    });
+    const b = await data.json()
+    // ^ fetches the channel data of the {login}
+    if (!b.success) {
+      // If user doesnt have the bot added, reply with false.
+      res.render("code", {
+        inChannel: false,
+      });
+    } else {
+      // If user doesnt have the bot added, reply with true.
+      res.render("code", {
+        inChannel: true,
+      });
+    }
   } else {
+    // If user is not logged in, redirect to login.
     res.render("authorize");
   }
 });
@@ -196,11 +234,36 @@ app.get("/denied", (req, res) => {
   res.render("accessDenied");
 });
 
+app.get("/dashboard", async (req, res) => {
+  if (req.session && req.session.passport && req.session.passport.user) {
+    const {login} = req.session.passport.user.data[0];
+    //console.log(login)
+    const data = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
+      method: "GET",
+    });
+    const b = await data.json()
+    //console.log(b)
+    if (!b.success) {
+      // If user doesnt have the bot added, render add bot button.
+      res.render("dashboardButNoBot")
+    } else {
+      // If user has the bot added, render dashboard.
+      res.render("dashboard", {
+        offlineOnly: b.offlineOnly,
+        poroOnly: b.poroOnly,
+      });
+    }
+  } else {
+    // If user is not logged in, redirect to authorize.
+    res.render("authorize");
+  }
+});
+
 app.get("/leaderboard", (req, res) => {
-  bot.DB.poroCount.find({}).exec(function (err, kekw) {
+  bot.DB.poroCount.find({}).exec(function (err, poro) {
     if (err) throw err;
 
-    const topUsers = kekw.sort((a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount).slice(0, 10).map((user) =>`[P:${user.poroPrestige}] ${user.username} - ${user.poroCount}`);
+    const topUsers = poro.sort((a, b) => b.poroPrestige - a.poroPrestige || b.poroCount - a.poroCount).slice(0, 10).map((user) =>`[P:${user.poroPrestige}] ${user.username} - ${user.poroCount}`);
 
     res.render("leaderboard", { topUsers });
   });
