@@ -234,6 +234,10 @@ app.get("/denied", (req, res) => {
   res.render("accessDenied");
 });
 
+app.get("/test", (req, res) => {
+  res.render("test");
+});
+
 app.get("/dashboard", async (req, res) => {
   if (req.session && req.session.passport && req.session.passport.user) {
     const {login} = req.session.passport.user.data[0];

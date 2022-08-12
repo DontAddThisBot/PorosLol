@@ -1,56 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 ">
-    <title>DontAddThisBot - Denied</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/joinButton.css">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>DontAddThisBot - Error</title>
+        <meta name="viewport" context="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 ">
+        <link rel="stylesheet" href="css/style2.css">
+        <link rel="stylesheet" href="css/joinButton.css">
+    </head>
 
-</head>
-<body>
-    <script src="js/botcmds.js">
-    </script>
-    <script>
-        function disableJoin () {
-            document.getElementById("joinOnDashboard").disabled = true;
-        }
-    </script>
-<div>
-    <center>
-        <table>
-            <thead>
+    <body>
+        <script src="js/botcmds.js">
+        </script>
+        <script>
+            function disableJoin () {
+                document.getElementById("joinOnDashboard").disabled = true;
+            }
+        </script>
+        <div class="wrapper">
+            <article class="img-info">
+                <img class="poro" src="img/poroHappy.png">
+                <a class="Datb" href="/">
+                    <strong>DontAddThisBot</strong>
+                </a>
 
-            <tr>
-                <img src="img/poroHappy.png"width="50" height="50"style = "position:relative; left:-350px; top:15px;text-align: center;right:0;">
-                <a style = "position:relative; left:-330px; top:0px;text-align: center;right:0;font-size: 20px" href="/"><strong>DontAddThisBot</strong></a>
-            </tr>
-            <tr>
-                <a href="/leaderboard" style = "position:relative; left:140px; top:0px;text-align: center;right:0;">Leaderboard</a>
-            </tr>
-            <tr>
-                <a href="/commands" style = "position:relative; left:180px; top:0px;text-align: center;right:0;">Commands</a>
-            </tr>
-            <tr>
-                <a href="/search" style = "position:relative; left:220px; top:0px;text-align: center;right:0;">Search</a>
-            </tr>
-            <tr>
-                <a  href=https://github.com/kattah7 target="_blank"><img src="img/githublogo.png"width="40" height="40"style = "position:relative; left:270px; top:10px;text-align: center;right:0;"></a>
-            </tr>
+                <a class="Leaderboard1" href="/leaderboard">Leaderboard</a>
+                <a class="Commands" href="/commands">Commands</a>
+                <a class="Search" href="/search">Search</a>
+                <a class="Github" href="https://github.com/kattah7" target="_blank">
+                    <img src="img/githublogo.png">
+                </a>
+            </article>
 
-
-            </thead>
-        </table>
-    </center>
-    <center style = "position:relative; left:-30px; top:150px;text-align: center;right:0;">
-        <a style = "position:relative; top:-10px;">
-            <button class="btn draw-border" id="joinOnDashboard" onclick="disableJoin()">Click to Join</button>
-        </a>
-    </center>
-        
-</div>
-</body>
+            <article class="OtherRelated">
+                <div class="botJoinDashboard">
+                    <button class="btn draw-border" id="joinOnDashboard" onclick="disableJoin()">Click to Join</button>
+                </div>
+            </article>
+        </div>
+    </body>
 </html>
