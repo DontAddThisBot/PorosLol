@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #565656;
+}
+
+.wrapper {
+    width: 100%;
+}
+
+.img-banner {
+    display: none;
+}
+
+.img-info {
+    width: 100%;
+}
+
+.img-info a {
+    padding: 30px 30px 20px;
+    font-family: 'Anek Latin', sans-serif;
+    font-size: 30px;
+    color: lightgrey;
+    line-height: 44px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    text-decoration: none;
+}
+
+.img-info a:hover {
+    color: #f3f3f35b;
+}
+
+.img-info h3,
+.OtherRelated h3 {
+    padding: 30px 30px 20px;
+    font-family: 'Anek Latin', sans-serif;
+    font-size: 30px;
+    color: lightgrey;
+    line-height: 44px;
+}
+
+.img-info img {
+    width: 100%;
+}
+
+.img-info p,
+.OtherRelated p {
+    padding: 0px 30px 20px;
+    font-family: montserrat, sans-serif;
+    font-size: 16px;
+    color: grey;
+    line-height: 24px;
+}
+
+@media only screen and (min-width: 768px) {
+    .wrapper {
+        width: 600px;
+        margin: 0 auto;
+    }
+
+    .img-info,
+    .OtherRelated {
+        width: 100%;
+        float: left;
+    }
+
+    .img-info img {
+        width: 50px;
+    }
+
+    .img-info img.poro {
+        width: 50px;
+        position: relative;
+        right: -170px;
+    }
+
+    .img-info a.Datb {
+        padding: 20px 0px 0px 50px;
+        font-size: 25px;
+        position: relative;
+        bottom: 10px;
+        right: -130px;
+    }
+
+    .img-info a.Leaderboard {
+        font-size: 30px;
+        position: relative;
+        bottom: -75px;
+        right: 350px;
+    }
+
+    .img-info a.Leaderboard1 {
+        font-size: 30px;
+        position: relative;
+        bottom: -90px;
+        right: 350px;
+    }
+
+    .img-info a.Commands {
+        font-size: 30px;
+        position: relative;
+        bottom: -30px;
+        right: -200px;
+    }
+
+    .img-info a.Search {
+        font-size: 30px;
+        position: relative;
+        bottom: -30px;
+        right: -200px;
+    }
+
+    .img-info a.Dashboard {
+        font-size: 30px;
+        position: relative;
+        bottom: -30px;
+        right: -200px;
+    }
+
+    .img-info a.Github {
+        position: relative;
+        bottom: 10px;
+        right: 150px;
+    }
+
+    .OtherRelated a.login {
+        width: 50px;
+        position: relative;
+        bottom: -10px;
+        right: -30px;
+    }
+
+    .OtherRelated div.Information {
+        position: relative;
+        bottom: -150px;
+        right: 100px;
+    }
+
+    .OtherRelated h3 {
+        font-size: 50px;
+    }
+
+    .OtherRelated p {
+        font-size: 30px;
+    }
+
+    .OtherRelated a.DankSpin {
+        position: relative;
+        right: -440px;
+        bottom: 200px;
+        width: 200px;
+        height: 200px;
+    }
+
+    .OtherRelated button.btn,
+    .OtherRelated button.btn2 {
+        position: relative;
+        bottom: -20px;
+        right: -30px;
+    }
+
+    .OtherRelated div.leaderboard {
+        position: relative;
+        bottom: -70px;
+        right: 100px;
+        font-size: 30px;
+    }
+
+    .OtherRelated div.leaderboardUsers {
+        position: relative;
+        bottom: 870px;
+        right: -80px;
+    }
+
+    .OtherRelated div.leaderboardInfo {
+        position: relative;
+        bottom: 800px;
+        right: -20px;
+    }
+
+    .OtherRelated div.Search {
+        position: relative;
+        bottom: -100px;
+        right: -100px;
+    }
+
+    .OtherRelated form.SearchUser {
+        position: relative;
+        bottom: 0px;
+        right: -80px;
+    }
+
+    .OtherRelated img.alien {
+        position: relative;
+        bottom: -50px;
+        right: -100px;
+    }
+
+    .OtherRelated div.AnotherSearch {
+        position: relative;
+        bottom: -100px;
+        right: 30px;
+    }
+
+    .OtherRelated form.SearchAnotherUser {
+        position: relative;
+        bottom: -20px;
+        right: -190px;
+    }
+
+    .OtherRelated div.UserInformation {
+        position: relative;
+        bottom: -20px;
+        right: 40px;
+    }
+
+    .OtherRelated img.userPFP {
+        position: relative;
+        bottom: -300px;
+        right: -330px;
+    }
+
+    .OtherRelated h3.notfound {
+        font-size: 50px;
+        position: relative;
+        bottom: -40px;
+        right: -30px;
+    }
+
+    .OtherRelated div.botJoinDashboard {
+        position: relative;
+        bottom: -80px;
+        right: -130px;
+    }
+
+    .OtherRelated div.authorize {
+        position: relative;
+        bottom: -200px;
+    }
+
+    .OtherRelated div.dashboard {
+        position: relative;
+        bottom: -100px;
+        right: -200px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .wrapper {
+        width: 1600px;
+        margin: 0 auto;
+    }
+
+    .img-info,
+    .OtherRelated {
+        width: 50%;
+        float: left;
+    }
+
+    .img-info img {
+        padding: 20px 0px 50px 0px;
+        width: 50px;
+    }
+
+    .img-info img.poro {
+        width: 50px;
+        position: relative;
+        right: -170px;
+    }
+
+    .img-info a.Datb {
+        padding: 20px 0px 0px 50px;
+        font-size: 25px;
+        position: relative;
+        bottom: 65px;
+        right: -130px;
+    }
+
+    .img-info a.Leaderboard {
+        font-size: 20px;
+        position: relative;
+        bottom: 65px;
+        right: -600px;
+    }
+
+    .img-info a.Leaderboard1 {
+        font-size: 20px;
+        position: relative;
+        bottom: 65px;
+        right: -600px;
+    }
+
+    .img-info a.Commands {
+        font-size: 20px;
+        position: relative;
+        bottom: 65px;
+        right: -600px;
+    }
+
+    .img-info a.Search {
+        font-size: 20px;
+        position: relative;
+        bottom: 65px;
+        right: -600px;
+    }
+
+    .img-info a.Dashboard {
+        font-size: 20px;
+        position: relative;
+        bottom: 200px;
+        right: -1300px;
+    }
+
+    .img-info a.Github {
+        font-size: 20px;
+        position: relative;
+        bottom: 130px;
+        right: -1300px;
+    }
+
+    .OtherRelated h3 {
+        font-size: 50px;
+        padding: 20px 0px 0px 50px;
+    }
+
+    .OtherRelated p {
+        font-size: 30px;
+        padding: 20px 0px 0px 50px;
+    }
+
+    .OtherRelated div.Information {
+        position: relative;
+        bottom: -300px;
+        right: 700px;
+    }
+
+    .OtherRelated a.login {
+        width: 50px;
+        position: relative;
+        bottom: -20px;
+        right: -50px;
+    }
+
+    .OtherRelated a.DankSpin {
+        position: relative;
+        right: -200px;
+        bottom: -20px;
+    }
+
+    .OtherRelated button.btn,
+    .OtherRelated button.btn2 {
+        position: relative;
+        bottom: -20px;
+        right: -50px;
+    }
+
+    .OtherRelated div.leaderboard {
+        position: relative;
+        bottom: -130px;
+        right: 750px;
+    }
+
+    .OtherRelated div.leaderboardUsers {
+        position: relative;
+        bottom: 510px;
+        right: 550px;
+    }
+
+    .OtherRelated div.leaderboardInfo {
+        position: relative;
+        bottom: 900px;
+        right: -100px;
+    }
+
+    .OtherRelated div.Search {
+        position: relative;
+        bottom: -200px;
+        right: 230px;
+    }
+
+    .OtherRelated form.SearchUser {
+        position: relative;
+        bottom: -20px;
+        right: -110px;
+    }
+
+    .OtherRelated img.alien {
+        position: relative;
+        bottom: -50px;
+        right: -140px;
+    }
+
+    .OtherRelated div.AnotherSearch {
+        position: relative;
+        bottom: -200px;
+        right: 300px;
+    }
+
+    .OtherRelated form.SearchAnotherUser {
+        position: relative;
+        bottom: -20px;
+        right: -190px;
+    }
+
+    .OtherRelated div.UserInformation {
+        position: relative;
+        bottom: -200px;
+        right: 300px;
+    }
+
+    .OtherRelated img.userPFP {
+        position: relative;
+        bottom: -400px;
+        right: -190px;
+    }
+
+    .OtherRelated h3.notfound {
+        font-size: 50px;
+        position: relative;
+        bottom: -40px;
+        right: -50px;
+    }
+
+    .OtherRelated div.botJoinDashboard {
+        position: relative;
+        bottom: -200px;
+        right: 180px;
+    }
+
+    .OtherRelated div.authorize {
+        position: relative;
+        bottom: -200px;
+        right: 400px;
+    }
+
+    .OtherRelated div.dashboard {
+        position: relative;
+        bottom: -200px;
+        right: 100px;
+    }
+}
