@@ -124,7 +124,8 @@ app.get("", async (req, res) => {
         method: "GET",
     });
     const levelRank = await data.json()
-    if (!levelRank) {
+    console.log(levelRank)
+    if (!levelRank.success) {
       const userdata = new bot.DB.users({
         id: id,
         username: login,
