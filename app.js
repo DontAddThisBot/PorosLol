@@ -97,7 +97,6 @@ passport.use(
       //});
 
       done(null, profile);
-      console.log(profile);
     }
   )
 );
@@ -218,7 +217,6 @@ app.get("/code", async (req, res) => {
           method: 'GET',
     }])
     const b = await Promise.all([responses[0].json(), responses[1].json()])
-    console.log(b[0], b[1])
     // ^ fetches the channel data of the {login}
     if (!b[0].success) {
       // If user doesnt have the bot added, reply with false.
