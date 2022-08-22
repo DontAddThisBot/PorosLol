@@ -63,6 +63,7 @@ OAuth2Strategy.prototype.userProfile = function (accessToken, done) {
       done(null, JSON.parse(body));
     } else {
       done(JSON.parse(body));
+      console.log(JSON.parse(body))
     }
   });
 };
@@ -96,6 +97,7 @@ passport.use(
       //});
 
       done(null, profile);
+      console.log(profile);
     }
   )
 );
@@ -124,7 +126,7 @@ app.get("", async (req, res) => {
         method: "GET",
     });
     const levelRank = await data.json()
-    console.log(levelRank)
+    //console.log(levelRank)
     if (!levelRank.success) {
       const userdata = new bot.DB.users({
         id: id,
@@ -209,20 +211,26 @@ app.get("/search", (req, res) => {
 app.get("/code", async (req, res) => {
   if (req.session && req.session.passport && req.session.passport.user) {
     const {login} = req.session.passport.user.data[0];
-    const data = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
-        method: "GET",
-    });
-    const b = await data.json()
+    const host = `http://localhost:3003`
+    const url1 = `${host}/api/bot/channel/${login}`
+    const url2 = `${host}/api/bot/channels`
+    const responses = await Promise.all([nodeFetch(url1), nodeFetch(url2), {
+          method: 'GET',
+    }])
+    const b = await Promise.all([responses[0].json(), responses[1].json()])
+    console.log(b[0], b[1])
     // ^ fetches the channel data of the {login}
-    if (!b.success) {
+    if (!b[0].success) {
       // If user doesnt have the bot added, reply with false.
       res.render("code", {
         inChannel: false,
+        code: b[1].todaysCode
       });
     } else {
       // If user doesnt have the bot added, reply with true.
       res.render("code", {
         inChannel: true,
+        code: b[1].todaysCode
       });
     }
   } else {
