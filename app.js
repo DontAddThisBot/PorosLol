@@ -154,7 +154,7 @@ app.get("", async (req, res) => {
           channels: channels.channelCount.toLocaleString(),
           allPoros: channels.totalPoros,
           avatar: profile_image_url,
-          inChannel: false,
+          inChannel: b.isChannel,
         });
       } else {
         // If user has the bot added, reply with true.
@@ -164,7 +164,7 @@ app.get("", async (req, res) => {
           channels: channels.channelCount.toLocaleString(),
           allPoros: channels.totalPoros,
           avatar: profile_image_url,
-          inChannel: true,
+          inChannel: b.isChannel,
         })
       }
     }
@@ -221,13 +221,13 @@ app.get("/code", async (req, res) => {
     if (!b[0].success) {
       // If user doesnt have the bot added, reply with false.
       res.render("code", {
-        inChannel: false,
+        inChannel: b[0].isChannel,
         code: b[1].todaysCode
       });
     } else {
       // If user doesnt have the bot added, reply with true.
       res.render("code", {
-        inChannel: true,
+        inChannel: b[0].isChannel,
         code: b[1].todaysCode
       });
     }
@@ -250,7 +250,7 @@ app.get("/dashboard", async (req, res) => {
     });
     const b = await data.json()
     //console.log(b)
-    if (!b.success) {
+    if (!b.isChannel) {
       // If user doesnt have the bot added, render add bot button.
       res.render("dashboardButNoBot")
     } else {
