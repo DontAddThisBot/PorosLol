@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('offline').addEventListener('click', offline);
 });
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('stv').addEventListener('click', stv);
+});
 
 async function part() {
     const r = await fetch('/api/bot/part', {
@@ -79,6 +82,18 @@ async function poro() {
 
 async function offline() {
     const r = await fetch('/api/bot/offline', {
+        method: 'POST',
+    });
+    const b = await r.json();
+    if (b.success) {
+        // show success notification
+    } else {
+        // show error notification with `b.message`
+    }
+}
+
+async function stv() {
+    const r = await fetch('/api/bot/stv', {
         method: 'POST',
     });
     const b = await r.json();

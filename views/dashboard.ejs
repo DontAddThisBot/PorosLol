@@ -59,6 +59,21 @@
                     </form>
                 </thead>
                 <% } %>
+                <% if (stvOnly) { %>
+                    <thead style = "position:relative; top:-10px;right:170px;">
+                        <form>
+                            <a>7tv Only</a>
+                            <input id="stv" type="checkbox" class="toggle" checked>
+                        </form>
+                    </thead>
+                    <% } else { %>
+                    <thead style = "position:relative; top:-10px;right:170px;">
+                        <form>
+                            <a>7tv Only</a>
+                            <input id="stv" type="checkbox" class="toggle" >
+                        </form>
+                    </thead>
+                    <% } %>
                 </div>
             </article>
         </div>

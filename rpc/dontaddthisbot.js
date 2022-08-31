@@ -57,3 +57,11 @@ exports.offlineOnly = async (id) => {
     const b = await r.json();
     return b;
 };
+
+exports.stvOnly = async (id) => {
+    const r = await fetch(`${HOSTNAME}/bot/stv?id=${encodeURIComponent(id)}`, {
+        method: "POST",
+    })
+    const b = await r.json();
+    return b;
+};

@@ -24,6 +24,7 @@ const ban = require('./routes/ban')
 const unban = require('./routes/unban')
 const poro = require('./routes/poros')
 const offline = require('./routes/offline')
+const stv = require('./routes/stv')
 
 const app = express();
 const port = 3001;
@@ -44,6 +45,7 @@ app.use(ban)
 app.use(unban)
 app.use(poro)
 app.use(offline)
+app.use(stv)
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
@@ -258,6 +260,7 @@ app.get("/dashboard", async (req, res) => {
       res.render("dashboard", {
         offlineOnly: b.offlineOnly,
         poroOnly: b.poroOnly,
+        stvOnly: b.stvOnly,
       });
     }
   } else {
