@@ -141,6 +141,13 @@ body {
         right: -30px;
     }
 
+    .OtherRelated a.logout {
+        width: 50px;
+        position: relative;
+        bottom: 670px;
+        right: -790px;
+    }
+
     .OtherRelated div.Information {
         position: relative;
         bottom: -150px;
@@ -350,6 +357,13 @@ body {
         position: relative;
         bottom: -20px;
         right: -50px;
+    }
+
+    .OtherRelated a.logout {
+        width: 50px;
+        position: relative;
+        bottom: 500px;
+        right: -760px;
     }
 
     .OtherRelated a.DankSpin {

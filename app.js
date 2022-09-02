@@ -205,6 +205,16 @@ app.get("/commands", (req, res) => {
   res.render("commands", { text: "Commands" });
 });
 
+app.get("/logout", (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return next(err);
+    } else {
+      return res.redirect("/");
+    }
+  });
+})
+
 app.get("/search", (req, res) => {
   res.render("search");
 });
