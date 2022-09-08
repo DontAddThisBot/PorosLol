@@ -65,6 +65,7 @@ OAuth2Strategy.prototype.userProfile = function (accessToken, done) {
       done(null, JSON.parse(body));
     } else {
       done(JSON.parse(body));
+      console.log(JSON.parse(body))
     }
   });
 };
@@ -120,11 +121,13 @@ app.get("", async (req, res) => {
     });
   const channels = await data.json()
   if (req.session && req.session.passport && req.session.passport.user) {
+    //console.log(req.session.passport.user.data[0])
     const {id, login, profile_image_url} = req.session.passport.user.data[0];
     const data = await nodeFetch(`http://localhost:3003/api/bot/users/${login}`, {
         method: "GET",
     });
     const levelRank = await data.json()
+    //console.log(levelRank)
     if (!levelRank.success) {
       const userdata = new bot.DB.users({
         id: id,
@@ -137,14 +140,14 @@ app.get("", async (req, res) => {
       res.render("index", {
         // if login success but not in database user must retry.
         channels: channels.channelCount.toLocaleString(),
-        allPoros: channels.totalPoros,
-        channelEmbed: channels.embedStream.toLowerCase(),
+        allPoros: channels.totalPoros
       });
     } else {
       const data = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
               method: "GET",
       });
       const b = await data.json()
+      //console.log(b)
       if (!b.success) {
         // If user doesnt have the bot added, reply with false.
         res.render('success', {
@@ -152,7 +155,6 @@ app.get("", async (req, res) => {
           rank: levelRank.level,
           channels: channels.channelCount.toLocaleString(),
           allPoros: channels.totalPoros,
-          channelEmbed: channels.embedStream.toLowerCase(),
           avatar: profile_image_url,
           inChannel: b.isChannel,
         });
@@ -163,7 +165,6 @@ app.get("", async (req, res) => {
           rank: levelRank.level,
           channels: channels.channelCount.toLocaleString(),
           allPoros: channels.totalPoros,
-          channelEmbed: channels.embedStream.toLowerCase(),
           avatar: profile_image_url,
           inChannel: b.isChannel,
         })
@@ -174,7 +175,6 @@ app.get("", async (req, res) => {
       // If login failed, then idk?
       channels: channels.channelCount.toLocaleString(),
       allPoros: channels.totalPoros,
-      channelEmbed: channels.embedStream.toLowerCase(),
     });
   };
 });
@@ -256,10 +256,12 @@ app.get("/denied", (req, res) => {
 app.get("/dashboard", async (req, res) => {
   if (req.session && req.session.passport && req.session.passport.user) {
     const {login} = req.session.passport.user.data[0];
+    //console.log(login)
     const data = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
       method: "GET",
     });
     const b = await data.json()
+    //console.log(b)
     if (!b.isChannel) {
       // If user doesnt have the bot added, render add bot button.
       res.render("dashboardButNoBot")
