@@ -63,15 +63,6 @@ body {
     line-height: 24px;
 }
 
-.twitch-embed p,
-h3 {
-    padding: 0px 30px 20px;
-    font-family: montserrat, sans-serif;
-    font-size: 16px;
-    color: grey;
-    line-height: 24px;
-}
-
 @media only screen and (min-width: 768px) {
     .wrapper {
         width: 600px;
@@ -471,18 +462,5 @@ h3 {
         position: relative;
         bottom: -200px;
         right: 100px;
-    }
-
-    .twitch-embed {
-        position: relative;
-        bottom: -150px;
-        right: 650px;
-    }
-
-    .twitch-embed h3.twitch-embed-text {
-        font-size: 30px;
-        position: relative;
-        bottom: 250px;
-        right: -800px;
     }
 }
