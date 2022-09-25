@@ -25,6 +25,8 @@ const unban = require('./routes/unban')
 const poro = require('./routes/poros')
 const offline = require('./routes/offline')
 const stv = require('./routes/stv')
+const codes = require("./codes.json")
+const crypto = require("crypto")
 
 const app = express();
 const port = 3001;
@@ -231,17 +233,26 @@ app.get("/code", async (req, res) => {
     }])
     const b = await Promise.all([responses[0].json(), responses[1].json()])
     // ^ fetches the channel data of the {login}
+
+    const now = new Date().toISOString().split("T")[0];
+    const userId = req.session.passport.user.data[0].id;
+    const hash = crypto.createHash("shake256", {outputLength: 8}).update(now+String(userId)).digest("hex")
+    const codeIndex = parseInt(hash, 16) % codes.length;
+    
+    // current date | user id of logged in user | hash converted to decimal from hex | index of codes list
+    console.log(`${now} | ${userId} | ${hash} | ${parseInt(hash, 16)} | ${codeIndex}`)
+
     if (!b[0].success) {
       // If user doesnt have the bot added, reply with false.
       res.render("code", {
         inChannel: b[0].isChannel,
-        code: b[1].todaysCode
+        code: codes[codeIndex].hint
       });
     } else {
       // If user doesnt have the bot added, reply with true.
       res.render("code", {
         inChannel: b[0].isChannel,
-        code: b[1].todaysCode
+        code: codes[codeIndex].hint
       });
     }
   } else {
