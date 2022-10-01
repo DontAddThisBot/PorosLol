@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300&display=swap');
+
+th,
+td {
+    padding: 0.5em;
+    background-color: rgba(145, 145, 145, 0.1);
+}
+
+td {
+    word-break: keep-all;
+    text-align: left;
+    outline-offset: 0.5em;
+    font-weight: bold;
+    font-family: 'Anek Latin', sans-serif;
+}
+
+td.name {
+    color: lightgrey;
+}
+
+
+th {
+    background-color: #6d6c6c;
+    padding: 10px;
+    font-weight: bold;
+    font-family: 'Anek Latin', sans-serif;
+}
+
+tr {
+    transition: all 0.1s linear;
+    border: 10px solid white;
+    font-weight: bold;
+    font-family: 'Anek Latin', sans-serif;
+}
+
+tbody tr:hover {
+    background-color: rgba(145, 145, 145, 0.1);
+    cursor: zoom-in;
+}
+
+button,
+input {
+    font-size: 1.2em;
+    color: #ababab;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: white;
+    background-color: rgba(41, 40, 40, 0.322);
+    transition: all 0.25s linear;
+}
+
+button {
+    min-width: 4.5em;
+    text-align: center;
+    margin-right: 5px;
+}
+
+button.active,
+button:hover {
+    cursor: pointer;
+    background-color: #333;
+}
+
+button.active {
+    border: 1px solid white;
+    font-weight: bold;
+}
+
+.filter {
+    padding: 0 5px;
+    overflow: hidden;
+}
+
+.search {
+    float: right;
+}
+
+.details:hover {
+    cursor: zoom-out;
+}
+
+.details th,
+.details td {
+    padding: 0;
+    background-color: inherit;
+}
+
+.details th {
+    text-align: left;
+    padding-right: 10px;
+}
+
+.extended {
+    margin-top: 5px;
+    cursor: auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 768px) {
+    article.commands {
+        position: relative;
+        top: 100px;
+    }
+    table.commands {
+        width: max-content;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    article.commands {
+        position: relative;
+        top: 100px;
+        right: 400px;
+    }
+    table.commands {
+        width: auto;
+    }
+}

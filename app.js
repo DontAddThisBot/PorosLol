@@ -18,13 +18,13 @@ bot.DB = require("./util/db.js");
 const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
 const nodeFetch = require("node-fetch");
-const join = require('./routes/join')
-const part = require('./routes/part')
-const ban = require('./routes/ban')
-const unban = require('./routes/unban')
-const poro = require('./routes/poros')
-const offline = require('./routes/offline')
-const stv = require('./routes/stv')
+const join = require("./routes/join");
+const part = require("./routes/part");
+const ban = require("./routes/ban");
+const unban = require("./routes/unban");
+const poro = require("./routes/poros");
+const offline = require("./routes/offline");
+const stv = require("./routes/stv");
 
 const app = express();
 const port = 3001;
@@ -39,13 +39,13 @@ app.use(passport.initialize());
 app.use("/css", express.static(__dirname + "public/css"));
 app.use("/js", express.static(__dirname + "public/js"));
 app.use("/img", express.static(__dirname + "public/img"));
-app.use(join)
-app.use(part)
-app.use(ban)
-app.use(unban)
-app.use(poro)
-app.use(offline)
-app.use(stv)
+app.use(join);
+app.use(part);
+app.use(ban);
+app.use(unban);
+app.use(poro);
+app.use(offline);
+app.use(stv);
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
@@ -116,15 +116,18 @@ app.get(
 
 app.get("", async (req, res) => {
   const channels = await nodeFetch(`http://localhost:3003/api/bot/channels`, {
-        method: "GET",
+    method: "GET",
   }).then((res) => res.json());
-  const { channelCount, totalPoros, embedStream} = channels;
+  const { channelCount, totalPoros, embedStream } = channels;
 
   if (req.session && req.session.passport && req.session.passport.user) {
-    const {id, login, profile_image_url} = req.session.passport.user.data[0];
-    const users = await nodeFetch(`http://localhost:3003/api/bot/users/${login}`, {
+    const { id, login, profile_image_url } = req.session.passport.user.data[0];
+    const users = await nodeFetch(
+      `http://localhost:3003/api/bot/users/${login}`,
+      {
         method: "GET",
-    }).then((res) => res.json());
+      }
+    ).then((res) => res.json());
     const { success, level } = users;
     if (!success) {
       const userdata = new bot.DB.users({
@@ -142,13 +145,16 @@ app.get("", async (req, res) => {
         channelEmbed: embedStream,
       });
     } else {
-      const channel = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
-              method: "GET",
-      }).then((res) => res.json());
+      const channel = await nodeFetch(
+        `http://localhost:3003/api/bot/channel/${login}`,
+        {
+          method: "GET",
+        }
+      ).then((res) => res.json());
       const { success, isChannel } = channel;
       if (!success) {
         // If user doesnt have the bot added, reply with false.
-        res.render('success', {
+        res.render("success", {
           username: login,
           rank: level,
           channels: channelCount.toLocaleString(),
@@ -159,7 +165,7 @@ app.get("", async (req, res) => {
         });
       } else {
         // If user has the bot added, reply with true.
-        res.render('success', {
+        res.render("success", {
           username: login,
           rank: level,
           channels: channelCount.toLocaleString(),
@@ -167,7 +173,7 @@ app.get("", async (req, res) => {
           channelEmbed: embedStream,
           avatar: profile_image_url,
           inChannel: isChannel,
-        })
+        });
       }
     }
   } else {
@@ -177,15 +183,18 @@ app.get("", async (req, res) => {
       allPoros: totalPoros,
       channelEmbed: embedStream,
     });
-  };
+  }
 });
 
 app.get("/admin", async (req, res) => {
   if (req.session && req.session.passport && req.session.passport.user) {
-    const {login} = req.session.passport.user.data[0];
-    const users = await nodeFetch(`http://localhost:3003/api/bot/users/${login}`, {
+    const { login } = req.session.passport.user.data[0];
+    const users = await nodeFetch(
+      `http://localhost:3003/api/bot/users/${login}`,
+      {
         method: "GET",
-    }).then((res) => res.json());
+      }
+    ).then((res) => res.json());
     const { level } = users;
     if (level > 1) {
       // If user is above level 1, render admin page.
@@ -202,8 +211,8 @@ app.get("/admin", async (req, res) => {
   }
 });
 
-app.get("/commands", (req, res) => {
-  res.render("commands", { text: "Commands" });
+app.get("/commands", async (req, res) => {
+  res.render("commands");
 });
 
 app.get("/logout", (req, res, next) => {
@@ -214,7 +223,7 @@ app.get("/logout", (req, res, next) => {
       return res.redirect("/");
     }
   });
-})
+});
 
 app.get("/search", (req, res) => {
   res.render("search");
@@ -222,26 +231,30 @@ app.get("/search", (req, res) => {
 
 app.get("/code", async (req, res) => {
   if (req.session && req.session.passport && req.session.passport.user) {
-    const {login} = req.session.passport.user.data[0];
-    const host = `http://localhost:3003`
-    const url1 = `${host}/api/bot/channel/${login}`
-    const url2 = `${host}/api/bot/channels`
-    const responses = await Promise.all([nodeFetch(url1), nodeFetch(url2), {
-          method: 'GET',
-    }])
-    const b = await Promise.all([responses[0].json(), responses[1].json()])
+    const { login } = req.session.passport.user.data[0];
+    const host = `http://localhost:3003`;
+    const url1 = `${host}/api/bot/channel/${login}`;
+    const url2 = `${host}/api/bot/channels`;
+    const responses = await Promise.all([
+      nodeFetch(url1),
+      nodeFetch(url2),
+      {
+        method: "GET",
+      },
+    ]);
+    const b = await Promise.all([responses[0].json(), responses[1].json()]);
     // ^ fetches the channel data of the {login}
     if (!b[0].success) {
       // If user doesnt have the bot added, reply with false.
       res.render("code", {
         inChannel: b[0].isChannel,
-        code: b[1].todaysCode
+        code: b[1].todaysCode,
       });
     } else {
       // If user doesnt have the bot added, reply with true.
       res.render("code", {
         inChannel: b[0].isChannel,
-        code: b[1].todaysCode
+        code: b[1].todaysCode,
       });
     }
   } else {
@@ -256,14 +269,17 @@ app.get("/denied", (req, res) => {
 
 app.get("/dashboard", async (req, res) => {
   if (req.session && req.session.passport && req.session.passport.user) {
-    const {login} = req.session.passport.user.data[0];
-    const data = await nodeFetch(`http://localhost:3003/api/bot/channel/${login}`, {
-      method: "GET",
-    }).then((res) => res.json());
+    const { login } = req.session.passport.user.data[0];
+    const data = await nodeFetch(
+      `http://localhost:3003/api/bot/channel/${login}`,
+      {
+        method: "GET",
+      }
+    ).then((res) => res.json());
     const { isChannel, offlineOnly, poroOnly, stvOnly } = data;
     if (!isChannel) {
       // If user doesnt have the bot added, render add bot button.
-      res.render("dashboardButNoBot")
+      res.render("dashboardButNoBot");
     } else {
       // If user has the bot added, render dashboard.
       res.render("dashboard", {
@@ -279,20 +295,23 @@ app.get("/dashboard", async (req, res) => {
 });
 
 app.get("/leaderboard", async (req, res) => {
-    const data = await nodeFetch(`http://localhost:3003/api/bot/leaderboard`, {
-          method: "GET",
-      });
-    const b = await data.json()
-    res.render("leaderboard", {
-      leaderboard: b.topUsers,
-    });
+  const data = await nodeFetch(`http://localhost:3003/api/bot/leaderboard`, {
+    method: "GET",
+  });
+  const b = await data.json();
+  res.render("leaderboard", {
+    leaderboard: b.topUsers,
+  });
 });
 
 app.get("/channel", async (req, res) => {
-  const user = req.query.user.toLocaleLowerCase()
-  const data = await nodeFetch(`http://localhost:3003/api/bot/porocount/${user}`, {
-    method: "GET",
-  }).then((res) => res.json());
+  const user = req.query.user.toLocaleLowerCase();
+  const data = await nodeFetch(
+    `http://localhost:3003/api/bot/porocount/${user}`,
+    {
+      method: "GET",
+    }
+  ).then((res) => res.json());
   const { success, userRank, totalRank, joinedAt } = data;
   if (!success) {
     return res.render("error");
