@@ -211,8 +211,8 @@ app.get("/admin", async (req, res) => {
   }
 });
 
-app.get("/commands", (req, res) => {
-  res.render("commands", { text: "Commands" });
+app.get("/commands", async (req, res) => {
+  res.render("commands");
 });
 
 app.get("/logout", (req, res, next) => {
