@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DontAddThisBot - Code</title>
+    <meta name="viewport" context="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 "
+    />
+    <link rel="stylesheet" href="css/style2.css" />
+    <link rel="stylesheet" href="css/commands.css" />
+  </head>
+
+  <body>
+    <script>
+      const onClick = async (event) => {
+        const eventType = event.srcElement.id;
+        const getCommands = await fetch('https://api.poros.lol/api/bot/commands', {
+          method: 'GET',
+        }).then((res) => res.json());
+        const commands = getCommands.commands;
+        commands[eventType].forEach((commands) => {
+          const commandsName = document.getElementById("name");
+          const commandsAlias = document.getElementById("alias");
+          const commandsDesc = document.getElementById("desc");
+          const commandsCooldown = document.getElementById("cooldown");
+          const isNull = commands.aliases === null ? "No aliases" : commands.aliases;
+          const isDescNull = commands.description === null ? "No description" : commands.description;
+          const br = "<br> <br> <br>";
+          commandsName.innerHTML += commands.name + br;
+          commandsAlias.innerHTML += isNull + br;
+          commandsDesc.innerHTML += isDescNull + br;
+          commandsCooldown.innerHTML += `${commands.cooldown/1000}s` + br;
+        });
+      }
+      const collapse = () => {
+        const commandsName = document.getElementById("name");
+        const commandsAlias = document.getElementById("alias");
+        const commandsDesc = document.getElementById("desc");
+        const commandsCooldown = document.getElementById("cooldown");
+        commandsName.innerHTML = "";
+        commandsAlias.innerHTML = "";
+        commandsDesc.innerHTML = "";
+        commandsCooldown.innerHTML = "";
+      }
+      const displayToBlock = () => {
+        const getTable = document.getElementById("commands");
+        getTable.style.display = "block";
+      }
+      window.addEventListener('load', () => {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((button) => {
+          button.addEventListener('click', displayToBlock);
+          button.addEventListener('click', onClick);
+          button.addEventListener('click', collapse);
+        });
+      });
+    </script>
+    <div class="wrapper">
+      <article class="img-info">
+        <img class="poro" src="img/poroHappy.png" />
+        <a class="Datb" href="/">
+          <strong>DontAddThisBot</strong>
+        </a>
+
+        <a class="Leaderboard1" href="/leaderboard">Leaderboard</a>
+        <a class="Commands" href="/commands">Commands</a>
+        <a class="Search" href="/search">Search</a>
+      </article>
+      <article class="commands">
+        <div class="filter">
+          <button id="stv">7TV</button>
+          <button id="poro">PORO</button>
+          <button id="stats">STATS</button>
+          <button id="mods">MODS</button>
+        </div>
+        <table style="display: none;" id="commands" class="commands">
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>Aliases</th>
+              <th>Description</th>
+              <th>Cooldown</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td class="name" id="name"></td>
+                <td class="alias" id="alias"></td>
+                <td class="desc" id="desc"></td>
+                <td class="center" id="cooldown"></td>
+              </tr>
+            </tbody>
+          </thead>
+        </table>
+      </article>
+    </div>
+  </body>
+</html>
