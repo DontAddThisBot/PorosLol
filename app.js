@@ -13,11 +13,12 @@ const SESSION_SECRET = process.env.SESSION_SECRET;
 const CALLBACK_URL = process.env.CALLBACK_URL;
 
 global.bot = {};
-bot.Redis = require("./util/redis.js");
 bot.DB = require("./util/db.js");
+const redis = require("./util/redis.js");
 const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
 const nodeFetch = require("node-fetch");
+
 const join = require("./routes/join");
 const part = require("./routes/part");
 const ban = require("./routes/ban");
@@ -29,23 +30,27 @@ const stv = require("./routes/stv");
 const app = express();
 const port = 3001;
 
+let RedisStore = require("connect-redis")(session);
+
 // Static Files
 app.use(
-  session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })
+  session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new RedisStore({ client: redis }),
+  })
 );
+
+for (const execute of [join, part, ban, unban, poro, offline, stv]) {
+  app.use(execute);
+}
 app.use(express.static("public"));
 app.use(passport.session());
 app.use(passport.initialize());
 app.use("/css", express.static(__dirname + "public/css"));
 app.use("/js", express.static(__dirname + "public/js"));
 app.use("/img", express.static(__dirname + "public/img"));
-app.use(join);
-app.use(part);
-app.use(ban);
-app.use(unban);
-app.use(poro);
-app.use(offline);
-app.use(stv);
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
