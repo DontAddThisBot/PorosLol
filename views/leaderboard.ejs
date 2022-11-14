@@ -1,59 +1,99 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>DontAddThisBot - Leaderboard</title>
-        <meta name="viewport" context="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 ">
-        <link rel="stylesheet" href="css/style2.css">
-    </head>
+  <head>
+    <meta charset="utf-8" />
+    <title>DontAddThisBot - Leaderboard</title>
+    <meta name="viewport" context="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4c39207000564711868f3196cc0a8748/default/dark/4.0 "
+    />
+    <link rel="stylesheet" href="css/style2.css" />
+  </head>
 
-    <body>
-        <script src="js/botcmds.js">
-        </script>
-        <script>
-            function disableJoin () {
-                document.getElementById("joinOnCode").disabled = true;
-            }
-        </script>
-        <div class="wrapper">
-            <article class="img-info">
-                <img class="poro" src="img/poroHappy.png">
-                <a class="Datb" href="/">
-                    <strong>DontAddThisBot</strong>
-                </a>
+  <body>
+    <script src="js/botcmds.js"></script>
+    <script>
+      function disableJoin() {
+        document.getElementById("joinOnCode").disabled = true;
+      }
+    </script>
+    <div class="wrapper">
+      <article class="img-info">
+        <img class="poro" src="img/poroHappy.png" />
+        <a class="Datb" href="/">
+          <strong>DontAddThisBot</strong>
+        </a>
 
-                <a class="Leaderboard1" href="/leaderboard">Leaderboard</a>
-                <a class="Commands" href="/commands">Commands</a>
-                <a class="Search" href="/search">Search</a>
-            </article>
+        <a class="Leaderboard1" href="/leaderboard">Leaderboard</a>
+        <a class="Commands" href="/commands">Commands</a>
+        <a class="Search" href="/search">Search</a>
+      </article>
 
-            <article class="OtherRelated">
-                <div class="leaderboard">
-                    <h3><span style="color:#FFD700;background-color: transparent;">#1</span></h3>
-                    <h3><span style="color:#C0C0C0;background-color: transparent;">#2</span></h3>
-                    <h3><span style="color:#CD7F32;background-color: transparent;">#3</span></h3>
-                    <h3><span style="color:#141414;background-color: transparent;">#4</span></h3>
-                    <h3><span style="color:#141414;background-color: transparent;">#5</span></h3>
-                    <h3><span style="color:#141414;background-color: transparent;">#6</span></h3>
-                    <h3><span style="color:#141414;background-color: transparent;">#7</span></h3>
-                    <h3><span style="color:#141414;background-color: transparent;">#8</span></h3>
-                    <h3><span style="color:#141414;background-color: transparent;">#9</span></h3>
-                    <h3><span style="color:#141414;background-color: transparent;">#10</span></h3>
-                </div>
-                <div class="leaderboardUsers">
-                    <% for (const data of leaderboard) { %>
-                        <h3>
-                            <%= data %>
-                        </h3>
-                    <% } %>
-                </div>
-                <div class="leaderboardInfo">
-                    <h3>Showing Top 10 poro count</h3>
-                    <p>Top 10 gets a special /me response from the bot</p>
-                    <p>Within Top 10 gets lower cooldowns</p>
-                </div>
-            </article>
+      <article class="OtherRelated">
+        <div class="leaderboard">
+          <h3>
+            <span style="color: #ffd700; background-color: transparent"
+              >#1</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #c0c0c0; background-color: transparent"
+              >#2</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #cd7f32; background-color: transparent"
+              >#3</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #141414; background-color: transparent"
+              >#4</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #141414; background-color: transparent"
+              >#5</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #141414; background-color: transparent"
+              >#6</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #141414; background-color: transparent"
+              >#7</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #141414; background-color: transparent"
+              >#8</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #141414; background-color: transparent"
+              >#9</span
+            >
+          </h3>
+          <h3>
+            <span style="color: #141414; background-color: transparent"
+              >#10</span
+            >
+          </h3>
         </div>
-    </body>
+        <div class="leaderboardUsers">
+          <% for (const data of leaderboard) { %>
+          <h3><%= data.username %></h3>
+          <% } %>
+        </div>
+        <div class="leaderboardInfo">
+          <h3>Showing Top 10 poro count</h3>
+          <p>Top 10 gets a special /me response from the bot</p>
+          <p>Within Top 10 gets lower cooldowns</p>
+        </div>
+      </article>
+    </div>
+  </body>
 </html>
