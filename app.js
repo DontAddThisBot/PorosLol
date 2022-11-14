@@ -38,6 +38,7 @@ app.use(
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: { maxAge: 2147483647 },
     store: new RedisStore({ client: redis }),
   })
 );
