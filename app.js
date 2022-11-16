@@ -18,6 +18,7 @@ const redis = require("./util/redis.js");
 const humanizeDuration = require("./humanizeDuration");
 const axios = require("axios");
 const nodeFetch = require("node-fetch");
+("test");
 
 const join = require("./routes/join");
 const part = require("./routes/part");
